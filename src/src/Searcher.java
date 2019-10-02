@@ -1,12 +1,14 @@
+
 import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 
 public class Searcher {
 
     Tree tree;
-
-    public Searcher(Tree tree){
+    Controller controller;
+    public Searcher(Tree tree, Controller controller){
         this.tree=tree;
+        this.controller=controller;
     }
 
     public void search(String phrase){
@@ -19,9 +21,10 @@ public class Searcher {
             String[] names = this.getDocsNames(ocurrenceList);
             String[] dates = this.getDates(ocurrenceList);
             String[] sizes = this.getSize(ocurrenceList);
+            controller.updateSearchPane(context, names, dates,sizes);
 
         }else{
-            //Interfaz.show(no input enterd)
+            //Interfaz.show(no input entered)
         }
     }
 
