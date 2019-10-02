@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
@@ -20,17 +20,17 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="242.0">
                      <children>
-                        <HBox alignment="CENTER" layoutY="341.0" prefHeight="57.0" prefWidth="144.0">
+                        <HBox alignment="CENTER" layoutY="341.0" prefHeight="57.0" prefWidth="144.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <children>
-                              <Button minWidth="33.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="20.0" text="+">
+                              <Button minWidth="21.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" text="+">
                                  <HBox.margin>
                                     <Insets right="4.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" text="-" />
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="28.0" text="-" />
                            </children>
                         </HBox>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="50.0" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="50.0" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="144.0">
                                  <children>
@@ -39,8 +39,9 @@
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <Button layoutX="41.0" layoutY="316.0" mnemonicParsing="false" text="Refresh" />
-                        <Label layoutX="58.0" layoutY="21.0" prefWidth="54.0" text="Library" />
+                        <Label layoutX="58.0" layoutY="21.0" prefWidth="54.0" text="Library" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="21.0" />
+                        <Button layoutX="21.0" layoutY="322.0" mnemonicParsing="false" text="Index" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="21.0" />
+                        <Button layoutX="73.0" layoutY="322.0" mnemonicParsing="false" text="Refresh" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="73.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -56,26 +57,36 @@
                                        </children>
                                     </AnchorPane>
                                     <Separator prefHeight="4.0" prefWidth="486.0" />
-                                    <HBox alignment="CENTER" prefHeight="11.0" prefWidth="486.0">
+                                    <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="486.0">
                                        <children>
-                                          <Label text="Name">
+                                          <Label text="Text">
                                              <HBox.margin>
-                                                <Insets right="47.0" />
+                                                <Insets left="83.0" right="85.0" />
                                              </HBox.margin>
                                           </Label>
                                           <Separator orientation="VERTICAL" prefHeight="200.0">
                                              <HBox.margin>
-                                                <Insets right="47.0" />
+                                                <Insets right="27.0" />
+                                             </HBox.margin>
+                                          </Separator>
+                                          <Label prefHeight="17.0" prefWidth="38.0" text="Name">
+                                             <HBox.margin>
+                                                <Insets right="26.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Separator orientation="VERTICAL" prefHeight="200.0">
+                                             <HBox.margin>
+                                                <Insets right="35.0" />
                                              </HBox.margin>
                                           </Separator>
                                           <Label text="Size">
                                              <HBox.margin>
-                                                <Insets right="47.0" />
+                                                <Insets right="35.0" />
                                              </HBox.margin>
                                           </Label>
                                           <Separator orientation="VERTICAL" prefHeight="42.0" prefWidth="4.0">
                                              <HBox.margin>
-                                                <Insets right="47.0" />
+                                                <Insets right="33.0" />
                                              </HBox.margin>
                                           </Separator>
                                           <Label text="Date" />
@@ -101,9 +112,10 @@
                                                    <children>
                                                       <HBox prefHeight="200.0" prefWidth="365.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
-                                                            <VBox prefHeight="321.0" prefWidth="161.0" />
+                                                            <VBox prefHeight="323.0" prefWidth="257.0" />
                                                             <VBox prefHeight="321.0" prefWidth="162.0" />
                                                             <VBox prefHeight="200.0" prefWidth="161.0" />
+                                                            <VBox prefHeight="321.0" prefWidth="162.0" />
                                                          </children>
                                                       </HBox>
                                                    </children>
