@@ -22,26 +22,26 @@
                      <children>
                         <HBox alignment="CENTER" layoutY="341.0" prefHeight="57.0" prefWidth="144.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <children>
-                              <Button minWidth="21.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" text="+">
+                              <Button fx:id="addBtn" minWidth="21.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" text="+">
                                  <HBox.margin>
                                     <Insets right="4.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="28.0" text="-" />
+                              <Button fx:id="deleteBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="28.0" text="-" />
                            </children>
                         </HBox>
                         <ScrollPane hbarPolicy="NEVER" layoutY="50.0" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0">
                                  <children>
-                                    <VBox prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <VBox fx:id="libraryPane" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <Label layoutX="58.0" layoutY="21.0" prefWidth="54.0" text="Library" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="21.0" />
-                        <Button layoutX="21.0" layoutY="322.0" mnemonicParsing="false" text="Index" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="21.0" />
-                        <Button layoutX="73.0" layoutY="322.0" mnemonicParsing="false" text="Refresh" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="73.0" />
+                        <Label layoutX="58.0" layoutY="21.0" prefHeight="17.0" prefWidth="38.0" text="Library" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="21.0" />
+                        <Button fx:id="indexBtn" layoutX="21.0" layoutY="322.0" mnemonicParsing="false" text="Index" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="21.0" />
+                        <Button fx:id="refreshBtn" layoutX="73.0" layoutY="322.0" mnemonicParsing="false" text="Refresh" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="73.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="543.0" SplitPane.resizableWithParent="false">
@@ -53,7 +53,7 @@
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="486.0">
                                        <children>
                                           <Button fx:id="searchBtn" layoutX="393.0" layoutY="12.0" mnemonicParsing="false" text="Search" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="12.0" />
-                                          <TextField layoutX="28.0" layoutY="16.0" prefHeight="26.0" prefWidth="338.0" />
+                                          <TextField fx:id="inputField" layoutX="28.0" layoutY="16.0" prefHeight="26.0" prefWidth="338.0" />
                                           <HBox alignment="CENTER_LEFT" layoutY="50.0" prefHeight="25.0" prefWidth="543.0">
                                              <children>
                                                 <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="205.0" text="Text" textAlignment="CENTER" />
@@ -74,19 +74,19 @@
                            <center>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="543.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <ScrollPane hbarPolicy="NEVER" layoutY="-9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
+                                    <ScrollPane fx:id="searchPane" hbarPolicy="NEVER" layoutY="-9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                                       <content>
                                         <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="542.0">
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="365.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
-                                                      <VBox prefHeight="383.0" prefWidth="206.0" />
+                                                      <VBox fx:id="textPane" prefHeight="383.0" prefWidth="206.0" />
                                                       <Separator orientation="VERTICAL" />
-                                                      <VBox prefHeight="383.0" prefWidth="107.0" />
+                                                      <VBox fx:id="namePane" prefHeight="383.0" prefWidth="107.0" />
                                                       <Separator orientation="VERTICAL" />
-                                                      <VBox prefHeight="200.0" prefWidth="104.0" />
+                                                      <VBox fx:id="sizePane" prefHeight="200.0" prefWidth="104.0" />
                                                       <Separator orientation="VERTICAL" />
-                                                      <VBox prefHeight="383.0" prefWidth="104.0" />
+                                                      <VBox fx:id="datePane" prefHeight="383.0" prefWidth="104.0" />
                                                    </children>
                                                 </HBox>
                                              </children>
