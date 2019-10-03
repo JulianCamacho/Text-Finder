@@ -19,9 +19,9 @@ public class Searcher {
             WordOcurrences wordOcurrences= this.searchWord(splitPhrase[0]);
             wordOcurrences=this.getRealOcurrences(wordOcurrences,splitPhrase);
             String[] context = this.getContext(wordOcurrences);
-            String[] names = this.getDocsNames(wordOcurrences);
-            String[] dates = this.getDates(wordOcurrences);
-            String[] sizes = this.getSize(wordOcurrences);
+            String[] names = wordOcurrences.getDocuments().toArray(new String[wordOcurrences.getDocuments().size()]);
+            String[] dates ={};
+            String[] sizes ={};
             controller.updateSearchPane(context, names, dates,sizes);
 
         }else{
@@ -35,43 +35,15 @@ public class Searcher {
     }
 
     private WordOcurrences getRealOcurrences(WordOcurrences wordOcurrences, String[] phrase){
-        ArrayList<> realOcurrenceList= new ArrayList();
-        for( element: ocurrenceList){
-            //Context in the ocurrencelist is compared with the remaining words of the phrase
+        int size = wordOcurrences.getDocuments().size();
+        for(int i = 0; i < size; i++){
+           //Updates stuff
         }
-        return realOcurrenceList;
+        return null;
     }
 
-    private String[] getContext(ArrayList<> ocurrenceList){
-        String[] context= new String[ocurrenceList.size()];
-        for(Element element: ocurrenceList){
-            //The context for each word is gotten here
-        }
-        return context;
-    }
-
-    private String[] getDocsNames(ArrayList<> ocurrenceList){
-        String[] names= new String[ocurrenceList.size()];
-        for(Element element: ocurrenceList){
-            //The names of the documents for each phrase is gotten here
-        }
-        return names;
-    }
-
-    private String[] getDates(ArrayList<> ocurrenceList){
-        String[] date= new String[ocurrenceList.size()];
-        for(Element element: ocurrenceList){
-            //The names of the documents for each phrase is gotten here
-        }
-        return date;
-    }
-
-    private String[] getSize(ArrayList<> ocurrenceList){
-        String[] size= new String[ocurrenceList.size()];
-        for(Element element: ocurrenceList){
-            //The names of the documents for each phrase is gotten here
-        }
-        return size;
+    private String[] getContext(WordOcurrences wordOcurrences){
+        return null;
     }
 
     private String[] decomposePhrase(String phrase){
