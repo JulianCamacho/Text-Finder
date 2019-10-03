@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
@@ -34,7 +35,10 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0">
                                  <children>
-                                    <VBox fx:id="libraryPane" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <VBox fx:id="libraryPane" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <ListView fx:id="libraryListView" prefHeight="321.0" prefWidth="144.0" />
+                                       </children></VBox>
                                  </children>
                               </AnchorPane>
                           </content>
@@ -74,19 +78,19 @@
                            <center>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="377.0" prefWidth="543.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <ScrollPane fx:id="searchPane" hbarPolicy="NEVER" layoutY="-9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
+                                    <ScrollPane hbarPolicy="NEVER" layoutY="-9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                                       <content>
-                                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="542.0">
+                                        <AnchorPane fx:id="searchPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="542.0">
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="365.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <children>
-                                                      <VBox fx:id="textPane" prefHeight="383.0" prefWidth="206.0" />
-                                                      <Separator orientation="VERTICAL" />
-                                                      <VBox fx:id="namePane" prefHeight="383.0" prefWidth="107.0" />
-                                                      <Separator orientation="VERTICAL" />
-                                                      <VBox fx:id="sizePane" prefHeight="200.0" prefWidth="104.0" />
-                                                      <Separator orientation="VERTICAL" />
-                                                      <VBox fx:id="datePane" prefHeight="383.0" prefWidth="104.0" />
+                                                      <VBox fx:id="textPane" alignment="TOP_CENTER" prefHeight="383.0" prefWidth="206.0" />
+                                                      <Separator fx:id="separator1" orientation="VERTICAL" />
+                                                      <VBox fx:id="namePane" alignment="TOP_CENTER" prefHeight="383.0" prefWidth="107.0" />
+                                                      <Separator fx:id="separator2" orientation="VERTICAL" />
+                                                      <VBox fx:id="sizePane" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="104.0" />
+                                                      <Separator fx:id="separator3" orientation="VERTICAL" />
+                                                      <VBox fx:id="datePane" alignment="TOP_CENTER" prefHeight="383.0" prefWidth="104.0" />
                                                    </children>
                                                 </HBox>
                                              </children>

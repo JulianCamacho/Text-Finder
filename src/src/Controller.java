@@ -1,8 +1,13 @@
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.util.List;
 
 public class Controller {
 
@@ -14,6 +19,27 @@ public class Controller {
 
     @FXML
     Button addBtn;
+
+    //MultipleFileChooser
+    public void ButtonPlusAction(MouseEvent event){
+        FileChooser fc = new FileChooser();
+        //fc.setInitialDirectory(new File("C\\users"));
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF files", "*.pdf "),
+                new FileChooser.ExtensionFilter("docx files", "*.docx"),
+                new FileChooser.ExtensionFilter("txt files", "*.txt"));
+        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+
+        if (selectedFiles != null){
+            for(int i = 0; i < selectedFiles.size(); i++){
+                libraryListView.getItems().add(selectedFiles.get(i).getName());
+                //hacer la lista de paths
+                //pathList.add(selectedFile.get(i).getAbsolutePath());
+            }
+        } else {
+            AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
+        }
+    }
 
     @FXML
     Button deleteBtn;
@@ -33,9 +59,14 @@ public class Controller {
     @FXML
     VBox sizePane;
 
-
     @FXML
     VBox datePane;
+
+    @FXML
+    ListView libraryListView;
+
+
+
 
     /***
      *  The AnchorPane that contains the VBox of resuts
@@ -62,7 +93,10 @@ public class Controller {
 
     @FXML
     public void initialize(){
+        addBtn.setOnMouseClicked(this::ButtonPlusAction);
     }
+
+
 
     public void updateSearchPane(String[] text, String[] names, String[] dates, String [] sizes){
         Label textLabel;
