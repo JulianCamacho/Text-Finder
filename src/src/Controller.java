@@ -148,13 +148,7 @@ public class Controller {
     private void ButtonIndex(MouseEvent event){
         contents=new ArrayList<>();
         for(File doc:this.documents){
-            try {
-                contents.add(ParserFacade.parse(doc));
-            } catch (JAXBException | IOException | Docx4JException e) {
-                AlertBoxes.displayAlertBox("Error", "An error has ocurred while reading "+doc.getName());
-                String[][] result={{""}};
-                contents.add(result);
-            }
+            // Se agregan los 2d arrays a contents 
         }
     }
 
