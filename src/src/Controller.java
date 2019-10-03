@@ -5,7 +5,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -138,14 +140,18 @@ public class Controller {
     }
 
 
-    public void ButtonMinus(MouseEvent event) {
+    public void ButtonMinus(MouseEvent event)  {
         //TxtReader.txtReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\fileChooserCode.txt");
         /*try{
             PdfReader.pdfReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\Proyecto #2 - Text Finder.pdf");
         }catch (IOException ex){
             AlertBoxes.displayResultAlertBox("", "");}*/
-        DocxReader.readDocxFile("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\I.docx");
-    }
+        try{
+        DocxReader.docxReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\I.docx");
+        }catch (JAXBException | Docx4JException e){
+            AlertBoxes.displayResultAlertBox("", "");
+        }
+        }
 
 
 
