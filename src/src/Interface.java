@@ -23,7 +23,6 @@ public class Interface extends Application {
         primaryStage.show();
         primaryStage.setMinWidth(primaryStage.getWidth());
         primaryStage.setMinHeight(primaryStage.getHeight());
-
     }
 
 

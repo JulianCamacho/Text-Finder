@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class Controller {
@@ -19,27 +20,6 @@ public class Controller {
 
     @FXML
     Button addBtn;
-
-    //MultipleFileChooser
-    public void ButtonPlusAction(MouseEvent event){
-        FileChooser fc = new FileChooser();
-        //fc.setInitialDirectory(new File("C\\users"));
-        fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF files", "*.pdf "),
-                new FileChooser.ExtensionFilter("docx files", "*.docx"),
-                new FileChooser.ExtensionFilter("txt files", "*.txt"));
-        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-
-        if (selectedFiles != null){
-            for(int i = 0; i < selectedFiles.size(); i++){
-                libraryListView.getItems().add(selectedFiles.get(i).getName());
-                //hacer la lista de paths
-                //pathList.add(selectedFile.get(i).getAbsolutePath());
-            }
-        } else {
-            AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
-        }
-    }
 
     @FXML
     Button deleteBtn;
@@ -94,6 +74,8 @@ public class Controller {
     @FXML
     public void initialize(){
         addBtn.setOnMouseClicked(this::ButtonPlusAction);
+        deleteBtn.setOnMouseClicked(this::ButtonMinus);
+
     }
 
 
@@ -133,6 +115,38 @@ public class Controller {
         datePane.getChildren().clear();
         sizePane.getChildren().clear();
     }
+
+    //MultipleFileChooser
+    public void ButtonPlusAction(MouseEvent event){
+        FileChooser fc = new FileChooser();
+        //fc.setInitialDirectory(new File("C\\users"));
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF files", "*.PDF "),
+                new FileChooser.ExtensionFilter("docx files", "*.docx"),
+                new FileChooser.ExtensionFilter("txt files", "*.txt"));
+        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+
+        if (selectedFiles != null){
+            for(int i = 0; i < selectedFiles.size(); i++){
+                libraryListView.getItems().add(selectedFiles.get(i).getName());
+                //hacer la lista de paths
+                //pathList.add(selectedFile.get(i).getAbsolutePath());
+            }
+        } else {
+            AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
+        }
+    }
+
+
+    public void ButtonMinus(MouseEvent event) {
+        //TxtReader.txtReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\fileChooserCode.txt");
+        /*try{
+            PdfReader.pdfReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\Proyecto #2 - Text Finder.pdf");
+        }catch (IOException ex){
+            AlertBoxes.displayResultAlertBox("", "");}*/
+        DocxReader.readDocxFile("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\I.docx");
+    }
+
 
 
 }

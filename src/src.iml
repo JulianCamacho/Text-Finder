@@ -10,7 +10,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../xmpbox-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../PDFBox Jars/fontbox-2.0.17.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../preflight-app-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../PDFBox Jars/pdfbox-2.0.17.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../pdfbox-tools-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../PDFBox Jars/pdfbox-app-2.0.17.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -37,7 +37,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../preflight-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../PDFBox Jars/pdfbox-tools-2.0.17.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -46,7 +46,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../pdfbox-app-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../PDFBox Jars/preflight-2.0.17.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -55,7 +55,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../pdfbox-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../PDFBox Jars/preflight-app-2.0.17.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -64,7 +64,61 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../fontbox-2.0.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../PDFBox Jars/xmpbox-2.0.17.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../ApachePOI Jars/poi-4.1.0/poi-4.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../ApachePOI Jars/poi-4.1.0/poi-examples-4.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../ApachePOI Jars/poi-4.1.0/poi-excelant-4.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../ApachePOI Jars/poi-4.1.0/poi-ooxml-4.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../ApachePOI Jars/poi-4.1.0/poi-ooxml-schemas-4.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../ApachePOI Jars/poi-4.1.0/poi-scratchpad-4.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
