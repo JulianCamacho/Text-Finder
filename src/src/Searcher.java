@@ -6,6 +6,7 @@ public class Searcher {
 
     Tree tree;
     Controller controller;
+
     public Searcher(Tree tree, Controller controller){
         this.tree=tree;
         this.controller=controller;
@@ -15,12 +16,12 @@ public class Searcher {
         String[] splitPhrase = this.decomposePhrase(phrase);
         if(splitPhrase.length>=1){
 
-            ArrayList ocurrenceList= this.searchWord(splitPhrase[0]);
-            ocurrenceList=this.getRealOcurrenceList(ocurrenceList,splitPhrase);
-            String[] context = this.getContext(ocurrenceList);
-            String[] names = this.getDocsNames(ocurrenceList);
-            String[] dates = this.getDates(ocurrenceList);
-            String[] sizes = this.getSize(ocurrenceList);
+            WordOcurrences wordOcurrences= this.searchWord(splitPhrase[0]);
+            wordOcurrences=this.getRealOcurrences(wordOcurrences,splitPhrase);
+            String[] context = this.getContext(wordOcurrences);
+            String[] names = this.getDocsNames(wordOcurrences);
+            String[] dates = this.getDates(wordOcurrences);
+            String[] sizes = this.getSize(wordOcurrences);
             controller.updateSearchPane(context, names, dates,sizes);
 
         }else{
@@ -28,14 +29,14 @@ public class Searcher {
         }
     }
 
-    private ArrayList<> searchWord(String word){
-        ArrayList<> ocurrenceList= this.tree.getOcurrenceList(word);
+    private WordOcurrences searchWord(String word){
+        WordOcurrences ocurrenceList= this.tree.getOcurrences(word);
         return ocurrenceList;
     }
 
-    private ArrayList<> getRealOcurrenceList(ArrayList<> temporaryOcurrenceList, String[] phrase){
+    private WordOcurrences getRealOcurrences(WordOcurrences wordOcurrences, String[] phrase){
         ArrayList<> realOcurrenceList= new ArrayList();
-        for(Element element: ocurrenceList){
+        for( element: ocurrenceList){
             //Context in the ocurrencelist is compared with the remaining words of the phrase
         }
         return realOcurrenceList;
