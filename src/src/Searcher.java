@@ -20,8 +20,8 @@ public class Searcher {
             wordOcurrences=this.getRealOcurrences(wordOcurrences,splitPhrase);
             String[] context = this.getContext(wordOcurrences);
             String[] names = wordOcurrences.getDocuments().toArray(new String[wordOcurrences.getDocuments().size()]);
-            String[] dates ={};
-            String[] sizes ={};
+            String[] dates = {};
+            String[] sizes = {};
             controller.updateSearchPane(context, names, dates,sizes);
 
         }else{
