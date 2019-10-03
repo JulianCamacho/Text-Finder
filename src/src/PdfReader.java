@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class PdfReader {
 
-    public static void pdfReader (String path) throws IOException {
+    public static String[] pdfReader (String path) throws IOException {
         try (PDDocument document = PDDocument.load(new File(path))) {
             document.getClass();
             if (!document.isEncrypted()) {
@@ -22,9 +22,8 @@ public class PdfReader {
 
                 // split by whitespace
                 String lines[] = pdfFileInText.split("\\r?\\n");
-                for (String line : lines) {
-                    System.out.println(line);
-                }
+
+                return lines;
             }
         }
     }

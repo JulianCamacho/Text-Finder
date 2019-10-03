@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class Tree {
     private Node root= null;
     private static Tree instance;
@@ -9,6 +11,11 @@ public class Tree {
     public boolean isContained(String word){
         return this.isContained(word, root);
     }
+
+    public void clear(){
+        this.root=null;
+    }
+
 
     private boolean isContained(String word, Node root){
         if(root==null){
@@ -22,11 +29,11 @@ public class Tree {
         }
     }
 
-    public void add(String word,String document, int lineNumber, int linePos){
+    public void add(String word,File document, int lineNumber, int linePos){
         root=this.add(word, document,  lineNumber,  linePos, this.root);
     }
 
-    private Node add(String word,String document, int lineNumber, int linePos,Node current){
+    private Node add(String word, File document, int lineNumber, int linePos, Node current){
         if(current==null){
             return new Node(word);
         }else if(current.getWord().equals(word)){
@@ -40,7 +47,7 @@ public class Tree {
 
     }
 
-    private void addOcurrence(WordOcurrences wordOcurrences,String document, int lineNumber, int linePos){
+    private void addOcurrence(WordOcurrences wordOcurrences,File document, int lineNumber, int linePos){
         wordOcurrences.getDocuments().add(document);
         wordOcurrences.getLineNumber().add(lineNumber);
         wordOcurrences.getLinePos().add(linePos);
@@ -60,5 +67,12 @@ public class Tree {
         }else{
             return this.getOcurrences(word, root.getRigth());
         }
+    }
+
+    public static Tree getInstance(){
+        if(instance==null){
+            instance=new Tree();
+        }
+        return instance;
     }
 }

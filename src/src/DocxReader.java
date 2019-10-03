@@ -15,16 +15,21 @@ import javax.xml.bind.JAXBException;
 
 public class DocxReader {
 
-    public static void docxReader (String path) throws JAXBException, Docx4JException {
+    public static String[] docxReader (String path) throws JAXBException, Docx4JException {
         File doc = new File(path);
         WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(doc);
         MainDocumentPart mainDocumentPart = wordMLPackage.getMainDocumentPart();
         String textNodesXPath = "//w:t";
         List<Object> textNodes= mainDocumentPart.getJAXBNodesViaXPath(textNodesXPath, true);
+
+        String[] lines= new String[textNodes.size()];
+        int i=0;
         for (Object obj : textNodes) {
             Text text = (Text) ((JAXBElement) obj).getValue();
             String textValue = text.getValue();
-            System.out.println(textValue);
+            lines[i]=textValue;
+            i++;
         }
+        return lines;
     }
 }

@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -10,6 +11,7 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -33,16 +35,16 @@ public class Controller {
     TextField inputField;
 
     @FXML
-    VBox textPane;
+    ListView textPane;
 
     @FXML
-    VBox namePane;
+    ListView namePane;
 
     @FXML
-    VBox sizePane;
+    ListView sizePane;
 
     @FXML
-    VBox datePane;
+    ListView datePane;
 
     @FXML
     ListView libraryListView;
@@ -62,14 +64,11 @@ public class Controller {
     @FXML
     VBox libraryPane;
 
-    @FXML
-    Separator separator1;
+    Searcher searcher;
 
-    @FXML
-    Separator separator2;
 
-    @FXML
-    Separator separator3;
+    List<File> documents;
+    ArrayList<String[][]> contents;
 
     public Controller(){}
 
@@ -77,45 +76,31 @@ public class Controller {
     public void initialize(){
         addBtn.setOnMouseClicked(this::ButtonPlusAction);
         deleteBtn.setOnMouseClicked(this::ButtonMinus);
-
+        indexBtn.setOnMouseClicked(this::ButtonIndex);
+        searchBtn.setOnMouseClicked(this::ButtonSearch);
+        searcher=new Searcher(this);
     }
 
 
 
     public void updateSearchPane(String[] text, String[] names, String[] dates, String [] sizes){
-        Label textLabel;
-        Label nameLabel;
-        Label dateLabel;
-        Label sizeLabel;
-
         this.clearSearchPane();
 
         for(int i=0; i<text.length;i++){
-            textLabel = new Label(text[i]);
-            nameLabel = new Label(names[i]);
-            dateLabel = new Label(dates[i]);
-            sizeLabel = new Label(sizes[i]);
-
-            textPane.getChildren().add(textLabel);
-            namePane.getChildren().add(nameLabel);
-            datePane.getChildren().add(dateLabel);
-            sizePane.getChildren().add(sizeLabel);
-
-            VBox.setMargin(textLabel, new Insets(5, 0, 5, 0));
-            VBox.setMargin(nameLabel, new Insets(5, 0, 5, 0));
-            VBox.setMargin(dateLabel, new Insets(5, 0, 5, 0));
-            VBox.setMargin(sizeLabel, new Insets(5, 0, 5, 0));
-
+            textPane.getItems().add(text[i]);
+            namePane.getItems().add(names[i]);
+            datePane.getItems().add(dates[i]);
+            sizePane.getItems().add(sizes[i]);
         }
 
 
     }
 
     private void clearSearchPane(){
-        textPane.getChildren().clear();
-        namePane.getChildren().clear();
-        datePane.getChildren().clear();
-        sizePane.getChildren().clear();
+        textPane.getItems().clear();
+        namePane.getItems().clear();
+        datePane.getItems().clear();
+        sizePane.getItems().clear();
     }
 
     //MultipleFileChooser
@@ -131,8 +116,7 @@ public class Controller {
         if (selectedFiles != null){
             for(int i = 0; i < selectedFiles.size(); i++){
                 libraryListView.getItems().add(selectedFiles.get(i).getName());
-                //hacer la lista de paths
-                //pathList.add(selectedFile.get(i).getAbsolutePath());
+                this.documents.addAll(selectedFiles);
             }
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
@@ -140,7 +124,7 @@ public class Controller {
     }
 
 
-    public void ButtonMinus(MouseEvent event)  {
+    private void ButtonMinus(MouseEvent event)  {
         //TxtReader.txtReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\fileChooserCode.txt");
         /*try{
             PdfReader.pdfReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\Proyecto #2 - Text Finder.pdf");
@@ -151,8 +135,30 @@ public class Controller {
         }catch (JAXBException | Docx4JException e){
             AlertBoxes.displayResultAlertBox("", "");
         }
+    }
+
+    public List<File> getDocuments() {
+        return documents;
+    }
+
+    public ArrayList<String[][]> getContents() {
+        return contents;
+    }
+
+    private void ButtonIndex(MouseEvent event){
+        contents=new ArrayList<>();
+        for(File doc:this.documents){
+            try {
+                contents.add(ParserFacade.parse(doc));
+            } catch (JAXBException | IOException | Docx4JException e) {
+                AlertBoxes.displayAlertBox("Error", "An error has ocurred while reading "+doc.getName());
+                String[][] result={{""}};
+                contents.add(result);
+            }
         }
+    }
 
-
-
+    private void ButtonSearch(MouseEvent e){
+        searcher.search(inputField.getText());
+    }
 }

@@ -1,9 +1,10 @@
+import java.io.File;
 import java.util.ArrayList;
 
 public class WordOcurrences {
-    ArrayList<String> documents;
-    ArrayList<Integer> lineNumber;
-    ArrayList<Integer> linePos;
+    private ArrayList<File> documents;
+    private ArrayList<Integer> lineNumber;
+    private ArrayList<Integer> linePos;
 
     public WordOcurrences(){
         this.documents = new ArrayList<>();
@@ -11,11 +12,12 @@ public class WordOcurrences {
         this.linePos = new ArrayList<>();
     }
 
-    public ArrayList<String> getDocuments() {
+
+    public ArrayList<File> getDocuments() {
         return documents;
     }
 
-    public void setDocuments(ArrayList<String> documents) {
+    public void setDocuments(ArrayList<File> documents) {
         this.documents = documents;
     }
 
