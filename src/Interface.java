@@ -7,11 +7,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Clase interfaz
+ */
 public class Interface extends Application {
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Metodo para inicializar la interfaz
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("interface.fxml"));

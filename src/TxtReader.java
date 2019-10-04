@@ -3,9 +3,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Esta clase extrae el teto de documentos txt
+ */
 public class TxtReader {
 
-
+    /**
+     * Este metodo extrae el texto de archivos txt
+     * @param path La ruta del archivo
+     * @return Array de las lineas de texto
+     */
     public static String[] txtReader(String path) {
         BufferedReader reader;
         ArrayList<String> lines= new ArrayList<>();

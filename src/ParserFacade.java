@@ -2,7 +2,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Esta clase obtiene el contenido de un documento
+ */
 public class ParserFacade {
+    /**
+     * Metodo para obtener el contenido de un documento
+     * @param file Archivo donde se extraera la informacion
+     * @return Array bidimensional con el contenido del documento
+     * @throws IOException
+     */
     public static String[][] parse(File file) throws  IOException {
         String extension = getExtension(file);
         String[] lines;
@@ -29,6 +38,11 @@ public class ParserFacade {
 
     }
 
+    /**
+     * Metodo para convertir una lista de lineas en un array bidimensional de palabras
+     * @param lines Lista de lineas
+     * @return Array bidimensional de palabras
+     */
     private static String[][] toBidemensionalArray(String[] lines){
         String[][] content = new String[lines.length][1];
         for(int i =0;i<lines.length;i++) {
@@ -50,6 +64,11 @@ public class ParserFacade {
         return content;
     }
 
+    /**
+     * Metodo para agrager el contenido del documento al arbol
+     * @param doc Documento
+     * @param content Contenido del documento
+     */
     private static void updateTree(File doc, String[][] content){
         Tree tree= Tree.getInstance();
         for(int i = 0; i< content.length; i++){
@@ -63,6 +82,11 @@ public class ParserFacade {
         }
     }
 
+    /**
+     * Metodo para obtener la extension de un archivo
+     * @param file Archivo
+     * @return Extension del archivo
+     */
     private static String getExtension(File file){
         int extensionStart = file.getName().lastIndexOf(".");
         return file.getName().substring(extensionStart+1);
