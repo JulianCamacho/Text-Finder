@@ -142,6 +142,8 @@ public class Controller {
 
     private void ButtonIndex(MouseEvent event){
         contents=new ArrayList<>();
+        Tree tree= Tree.getInstance();
+        tree.clear();
         for(File doc:this.documents){
             try {
                 contents.add(ParserFacade.parse(doc));

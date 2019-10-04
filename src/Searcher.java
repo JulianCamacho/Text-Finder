@@ -95,10 +95,20 @@ public class Searcher {
             lineNumber=wordOcurrences.getLineNumber().get(i);
             linePos=wordOcurrences.getLinePos().get(i);
 
-            for(int j = 0; j<phrase.length;j++){
-                error= !content[lineNumber+(linePos+j)/content.length][(linePos+j)%content.length].equals(phrase[j]);
-                if (error){
-                    break;
+
+            int index1= lineNumber;
+            int index2= linePos;
+            for(int j=0;j<phrase.length;j++){
+                try {
+                    error= !content[index1][index2].equals(phrase[j]);
+                    if (error){
+                        break;
+                    }
+                    index2++;
+                }catch (IndexOutOfBoundsException e){
+                    index1++;
+                    index2=0;
+                    j--;
                 }
             }
 

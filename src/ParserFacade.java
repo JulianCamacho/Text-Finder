@@ -52,7 +52,6 @@ public class ParserFacade {
 
     private static void updateTree(File doc, String[][] content){
         Tree tree= Tree.getInstance();
-        tree.clear();
         for(int i = 0; i< content.length; i++){
             for(int j = 0; j< content[i].length; j++) {
                 if (content[i][j] != null) {

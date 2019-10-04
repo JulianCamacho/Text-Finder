@@ -35,7 +35,9 @@ public class Tree {
 
     private Node add(String word, File document, int lineNumber, int linePos, Node current){
         if(current==null){
-            return new Node(word);
+            Node node= new Node(word);
+            this.addOcurrence(node.getWordOcurrences(),document,lineNumber,linePos);
+            return node;
         }else if(current.getWord().equals(word)){
             this.addOcurrence(current.getWordOcurrences(),document,lineNumber,linePos);
         }else if(current.getWord().compareTo(word)>0){
