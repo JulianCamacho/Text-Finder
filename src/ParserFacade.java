@@ -1,6 +1,3 @@
-import org.docx4j.openpackaging.exceptions.Docx4JException;
-
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
