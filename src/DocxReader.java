@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- * Esta clase extrae el teto de documentos docx
+ * Esta clase extrae el texto de documentos docx
  */
 public class DocxReader {
     /**

@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -138,7 +136,6 @@ public class Searcher {
             lineNumber=wordOcurrences.getLineNumber().get(i);
             linePos=wordOcurrences.getLinePos().get(i);
 
-
             int index1= lineNumber;
             int index2= linePos;
             for(int j=0;j<phrase.length;j++){
@@ -228,7 +225,7 @@ public class Searcher {
 
     /**
      * Elimina los espacios nulos o vacios de una frase
-     * @param phrase Frase a obtimizar
+     * @param phrase Frase a optimizar
      * @return Array con las palabras reales de la frase
      */
     private String[] decomposePhrase(String phrase){
