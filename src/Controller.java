@@ -1,7 +1,10 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -10,6 +13,7 @@ import javafx.stage.FileChooser;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +77,23 @@ public class Controller {
     @FXML
     ListView libraryListView;
 
+    /**
+     * Tabla donde se muestran los resultados
+     */
+    @FXML
+    TableView<Documents> resultsTable;
 
-
+    /**
+     * Columnas de la tabla de resultados
+     */
+    @FXML
+    TableColumn textColumn;
+    @FXML
+    TableColumn nameColumn;
+    @FXML
+    TableColumn sizeColumn;
+    @FXML
+    TableColumn dateColumn;
 
     /***
      *  The AnchorPane that contains the VBox of resuts
@@ -103,6 +122,8 @@ public class Controller {
      * Contenido de documentos en la librera, en el orden de la lista de documentos de la libreria
      */
     ArrayList<String[][]> contents;
+
+    DocumentsSimplyLinkedList dl = new DocumentsSimplyLinkedList();
 
     /**
      * Clase controlador
@@ -179,11 +200,11 @@ public class Controller {
 
 
     private void ButtonMinus(MouseEvent event)  {
-        try {
-            DocxReader.docxReader("C:\\Users\\toshiba\\Documents\\!A -- TEC -- II Semestre -- 2019\\Algoritmos y Estructuras de Datos I\\Archivos\\I.docx");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dl.addLast(new Documents("a", "aa", "aaa", 1, "1"));
+        dl.addLast(new Documents("b", "bb", "bbb", 2, "2"));
+        dl.addLast(new Documents("c", "cc", "ccc", 3, "3"));
+        dl.addLast(new Documents("d", "dd", "ddd", 4, "4"));
+        updateResultTable();
     }
 
     /**
@@ -237,11 +258,36 @@ public class Controller {
         int index =namePane.getSelectionModel().getSelectedIndex();
         try {
             Desktop.getDesktop().open(documentsOnSearchPane[index]);
+            //RandomAccessFile raFile = new RandomAccessFile(documentsOnSearchPane[index], "r");
+            //raFile.seek(500);
         } catch (IOException ex) {
             AlertBoxes.displayAlertBox("Error", "File not found");
         } catch (NullPointerException | ArrayIndexOutOfBoundsException error){
 
         }
+    }
+
+    public ObservableList<Documents> getIndexedDocuments(DocumentsSimplyLinkedList allFiles){
+        ObservableList<Documents> files = FXCollections.observableArrayList();
+        Documents f = allFiles.first;
+        while (f != null){
+            files.add(f);
+            f = f.next;
+        }
+        return files;
+    }
+    private void updateResultTable(){
+        textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        textColumn.setSortable(false);
+        nameColumn.setSortable(false);
+        sizeColumn.setSortable(false);
+        dateColumn.setSortable(false);
+
+        resultsTable.setItems(getIndexedDocuments(dl));
     }
 
 }
