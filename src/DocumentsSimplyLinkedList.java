@@ -1,4 +1,6 @@
-
+/**
+ * Lista simplemente enlazada de documentos
+ */
 public class DocumentsSimplyLinkedList {
 
     protected Documents first;
