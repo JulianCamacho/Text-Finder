@@ -14,6 +14,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +144,7 @@ public class Controller {
         searchBtn.setOnMouseClicked(this::ButtonSearch);
         namePane.setOnMouseClicked(this::ListViewClic);
         searcher=new Searcher(this);
+        inputField.setPromptText("Insert a word or phrase");
     }
 
 
@@ -192,6 +195,14 @@ public class Controller {
             for(int i = 0; i < selectedFiles.size(); i++){
                 libraryListView.getItems().add(selectedFiles.get(i).getName());
                 this.documents.addAll(selectedFiles);
+                try{
+                dl.addLast(new Documents(new File(selectedFiles.get(i).getPath()),
+                        selectedFiles.get(i).getPath(), selectedFiles.get(i).getName(),
+                        selectedFiles.get(i).length() + " bytes",
+                        Files.readAttributes(selectedFiles.get(i).toPath(), BasicFileAttributes.class).creationTime().toString().substring(0, 10)));
+                } catch (IOException e){
+                    AlertBoxes.displayAlertBox("Exception","Invalid file");
+                }
             }
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
@@ -200,10 +211,6 @@ public class Controller {
 
 
     private void ButtonMinus(MouseEvent event)  {
-        dl.addLast(new Documents("a", "aa", "aaa", 1, "1"));
-        dl.addLast(new Documents("b", "bb", "bbb", 2, "2"));
-        dl.addLast(new Documents("c", "cc", "ccc", 3, "3"));
-        dl.addLast(new Documents("d", "dd", "ddd", 4, "4"));
         updateResultTable();
     }
 
@@ -231,7 +238,8 @@ public class Controller {
         contents=new ArrayList<>();
         Tree tree= Tree.getInstance();
         tree.clear();
-        for(File doc:this.documents){
+        for(int i = 0; i < dl.getLength(); i++){
+            File doc = dl.get(i).getFile();
             try {
                 contents.add(ParserFacade.parse(doc));
             } catch ( IOException e) {
@@ -255,7 +263,7 @@ public class Controller {
      * @param e
      */
     private void ListViewClic(MouseEvent e) {
-        int index =namePane.getSelectionModel().getSelectedIndex();
+        int index = namePane.getSelectionModel().getSelectedIndex();
         try {
             Desktop.getDesktop().open(documentsOnSearchPane[index]);
             //RandomAccessFile raFile = new RandomAccessFile(documentsOnSearchPane[index], "r");
@@ -267,12 +275,10 @@ public class Controller {
         }
     }
 
-    public ObservableList<Documents> getIndexedDocuments(DocumentsSimplyLinkedList allFiles){
+    public ObservableList<Documents> getIndexedDocuments(){
         ObservableList<Documents> files = FXCollections.observableArrayList();
-        Documents f = allFiles.first;
-        while (f != null){
-            files.add(f);
-            f = f.next;
+        for(int i = 0; i < dl.getLength(); i++){
+            files.add(dl.get(i));
         }
         return files;
     }
@@ -287,7 +293,6 @@ public class Controller {
         sizeColumn.setSortable(false);
         dateColumn.setSortable(false);
 
-        resultsTable.setItems(getIndexedDocuments(dl));
+        resultsTable.setItems(getIndexedDocuments());
     }
-
 }

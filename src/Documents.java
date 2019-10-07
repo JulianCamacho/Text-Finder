@@ -1,16 +1,20 @@
+import java.io.File;
+
 public class Documents {
 
+    private File file;
     private String path;
-    private String text;
+    //private String text;
     private String name;
-    private int size;
+    private String size;
     private String date;
 
     protected Documents next;
 
-    public Documents(String path, String text, String name, int size, String date) {
+    public Documents(File file, String path, String name, String size, String date) {
+        this.file = file;
         this.path = path;
-        this.text = text;
+        //this.text = text;
         this.name = name;
         this.size = size;
         this.date = date;
@@ -24,13 +28,9 @@ public class Documents {
         this.path = path;
     }
 
-    public String getText() {
-        return text;
-    }
+    //public String getText() { return text; }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+   // public void setText(String text) { this.text = text; }
 
     public String getName() {
         return name;
@@ -40,11 +40,11 @@ public class Documents {
         this.name = name;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -54,5 +54,13 @@ public class Documents {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }

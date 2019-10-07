@@ -1,3 +1,5 @@
+import java.util.zip.DeflaterOutputStream;
+
 /**
  * Lista simplemente enlazada de documentos
  */
@@ -19,17 +21,32 @@ public class DocumentsSimplyLinkedList {
         return this.first == null;
     }
 
-    public void addLast(Documents docu){
+    public Documents get(int index){
+        if (this.first == null){
+            return null;
+        }
+        else {
+            Documents current = this.first;
+            int i = 0;
+            while (i < index) {
+                current = current.next;
+                i++;
+            }
+            return current;
+        }
+    }
+
+    public void addLast(Documents doc){
         this.length ++;
         if (this.first == null){
-            this.first = docu;
+            this.first = doc;
         }
         else{
             Documents current = this.first;
             while (current.next != null){
                 current = current.next;
             }
-            current.next = docu;
+            current.next = doc;
         }
     }
 
@@ -69,5 +86,9 @@ public class DocumentsSimplyLinkedList {
             System.out.print(current.getName());
             System.out.print("]");
         }
+    }
+
+    public int getLength() {
+        return length;
     }
 }

@@ -119,7 +119,7 @@ public class Searcher {
      * @param phrase Frase a analizar
      * @return Ocurrencias reales de toda la frase
      */
-    private WordOcurrences getRealOcurrences(WordOcurrences wordOcurrences, String[] phrase){
+    public WordOcurrences getRealOcurrences(WordOcurrences wordOcurrences, String[] phrase){
         int size = wordOcurrences.getDocuments().size();
         File document;
         int lineNumber;
@@ -177,7 +177,7 @@ public class Searcher {
      * @param wordOcurrences Ocurrencias de la palabra
      * @return Contexto de la palabra
      */
-    private String[] getContext(WordOcurrences wordOcurrences){
+    protected String[] getContext(WordOcurrences wordOcurrences){
         int size = wordOcurrences.getDocuments().size();
         String[] contexts= new String[size];
         for(int i=0;i<size;i++){
