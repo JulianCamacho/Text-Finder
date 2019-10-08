@@ -9,7 +9,8 @@ public class Documents {
     private String size;
     private String date;
 
-    protected Documents next;
+    protected Documents next = null;
+    protected Documents prev = null;
 
     public Documents(File file, String path, String name, String size, String date) {
         this.file = file;

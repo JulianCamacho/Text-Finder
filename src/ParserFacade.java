@@ -65,7 +65,7 @@ public class ParserFacade {
     }
 
     /**
-     * Metodo para agrager el contenido del documento al arbol
+     * Metodo para agregar el contenido del documento al arbol
      * @param doc Documento
      * @param content Contenido del documento
      */

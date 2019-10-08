@@ -125,7 +125,7 @@ public class Controller {
      */
     ArrayList<String[][]> contents;
 
-    DocumentsSimplyLinkedList dl = new DocumentsSimplyLinkedList();
+    DocumentsDoublyLinkedList dl = new DocumentsDoublyLinkedList();
 
     /**
      * Clase controlador
@@ -200,6 +200,7 @@ public class Controller {
                         selectedFiles.get(i).getPath(), selectedFiles.get(i).getName(),
                         selectedFiles.get(i).length() + " bytes",
                         Files.readAttributes(selectedFiles.get(i).toPath(), BasicFileAttributes.class).creationTime().toString().substring(0, 10)));
+                dl.printList();
                 } catch (IOException e){
                     AlertBoxes.displayAlertBox("Exception","Invalid file");
                 }
@@ -211,6 +212,8 @@ public class Controller {
 
 
     private void ButtonMinus(MouseEvent event)  {
+        QuickSort.quickSort(dl, 0, dl.getLength()-1);
+        dl.printList();
         updateResultTable();
     }
 
@@ -268,10 +271,8 @@ public class Controller {
             Desktop.getDesktop().open(documentsOnSearchPane[index]);
             //RandomAccessFile raFile = new RandomAccessFile(documentsOnSearchPane[index], "r");
             //raFile.seek(500);
-        } catch (IOException ex) {
+        } catch (IOException | NullPointerException | ArrayIndexOutOfBoundsException ex) {
             AlertBoxes.displayAlertBox("Error", "File not found");
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException error){
-
         }
     }
 
