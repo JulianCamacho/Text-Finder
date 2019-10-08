@@ -37,7 +37,7 @@ public class QuickSort {
     }
 
 
-    private static void swap(Documents a, Documents b, DocumentsDoublyLinkedList dl){
+    public static void swap(Documents a, Documents b, DocumentsDoublyLinkedList dl){
         if (dl.isEmpty() || dl.first == dl.last){
             return;
         }

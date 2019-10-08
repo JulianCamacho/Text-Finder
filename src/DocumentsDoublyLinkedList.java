@@ -69,6 +69,7 @@ public class DocumentsDoublyLinkedList {
         }
     }
 
+
     public int getLength() {
         return length;
     }

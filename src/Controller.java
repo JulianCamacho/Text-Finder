@@ -212,7 +212,8 @@ public class Controller {
 
 
     private void ButtonMinus(MouseEvent event)  {
-        QuickSort.quickSort(dl, 0, dl.getLength()-1);
+        //QuickSort.quickSort(dl, 0, dl.getLength()-1);
+        BubbleSort.bubbleSort(dl);
         dl.printList();
         updateResultTable();
     }
