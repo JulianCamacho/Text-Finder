@@ -5,6 +5,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -14,6 +16,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -43,6 +46,7 @@ public class Controller {
      */
     @FXML
     Button deleteBtn;
+
     /**
      * Boton de buscar
      */
@@ -97,6 +101,27 @@ public class Controller {
     @FXML
     TableColumn dateColumn;
 
+    /**
+     * Botones para ordenamiento
+     */
+
+    @FXML
+    Button textUpBtn;
+    @FXML
+    Button textDownBtn;
+    @FXML
+    Button nameUpBtn;
+    //@FXML
+    //Button nameDownBtn;
+    @FXML
+    Button sizeUpBtn;
+    @FXML
+    Button sizeDownBtn;
+    @FXML
+    Button dateUpBtn;
+    @FXML
+    Button dateDownBtn;
+
     /***
      *  The AnchorPane that contains the VBox of resuts
      */
@@ -143,8 +168,16 @@ public class Controller {
         indexBtn.setOnMouseClicked(this::ButtonIndex);
         searchBtn.setOnMouseClicked(this::ButtonSearch);
         namePane.setOnMouseClicked(this::ListViewClic);
+
+        nameUpBtn.setOnMouseClicked(this::buttonNameUp);
+        //nameDownBtn.setOnMouseClicked(this::buttonNameDown);
+
+        dateUpBtn.setOnMouseClicked(this::buttonDateUp);
+        dateDownBtn.setOnMouseClicked(this::buttonDateDown);
+
         searcher=new Searcher(this);
         inputField.setPromptText("Insert a word or phrase");
+        //deleteBtn.setGraphic(new ImageView(new Image("imgs/icon1.png")));
     }
 
 
@@ -156,14 +189,21 @@ public class Controller {
      * @param dates Fechas de los documentos de las palabras
      * @param sizes Tamano de los documentos de las palabras
      */
-    public void updateSearchPane(ArrayList<File> documents,String[] text, String[] names, String[] dates, String [] sizes){
+    public void updateSearchPane(ArrayList<File> documents,String[] text, String[] names, String[] dates, String [] sizes) {
         this.clearSearchPane();
         this.documentsOnSearchPane=documents.toArray(new File[documents.size()]);
         for(int i=0; i<text.length;i++){
-            textPane.getItems().add(text[i]);
+            /*textPane.getItems().add(text[i]);
             namePane.getItems().add(names[i]);
             datePane.getItems().add(dates[i]);
-            sizePane.getItems().add(sizes[i]);
+            sizePane.getItems().add(sizes[i]);*/
+            try{
+                dl.addLast(new Documents(text[i], names[i], sizes[i], dates[i].substring(0, 10)));
+            }catch (MalformedURLException e){
+                AlertBoxes.displayAlertBox("Exception", "An error occurred with the file");
+            }
+            this.updateResultTable();
+
         }
 
 
@@ -195,15 +235,6 @@ public class Controller {
             for(int i = 0; i < selectedFiles.size(); i++){
                 libraryListView.getItems().add(selectedFiles.get(i).getName());
                 this.documents.addAll(selectedFiles);
-                try{
-                dl.addLast(new Documents(new File(selectedFiles.get(i).getPath()),
-                        selectedFiles.get(i).getPath(), selectedFiles.get(i).getName(),
-                        selectedFiles.get(i).length() + " bytes",
-                        Files.readAttributes(selectedFiles.get(i).toPath(), BasicFileAttributes.class).creationTime().toString().substring(0, 10)));
-                dl.printList();
-                } catch (IOException e){
-                    AlertBoxes.displayAlertBox("Exception","Invalid file");
-                }
             }
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
@@ -211,9 +242,14 @@ public class Controller {
     }
 
 
-    private void ButtonMinus(MouseEvent event)  {
+    private void ButtonMinus(MouseEvent event) {
         //QuickSort.quickSort(dl, 0, dl.getLength()-1);
-        BubbleSort.bubbleSort(dl);
+        //BubbleSort.bubbleSort(dl);
+        try{
+            RadixSort.backToDoublyList(RadixSort.radixsort(RadixSort.toIntArray(dl), dl.getLength()), dl);
+        }catch (MalformedURLException e){
+            System.out.println("n");
+        }
         dl.printList();
         updateResultTable();
     }
@@ -242,8 +278,7 @@ public class Controller {
         contents=new ArrayList<>();
         Tree tree= Tree.getInstance();
         tree.clear();
-        for(int i = 0; i < dl.getLength(); i++){
-            File doc = dl.get(i).getFile();
+        for(File doc:this.documents){
             try {
                 contents.add(ParserFacade.parse(doc));
             } catch ( IOException e) {
@@ -277,7 +312,7 @@ public class Controller {
         }
     }
 
-    public ObservableList<Documents> getIndexedDocuments(){
+    public ObservableList<Documents> getIndexedDocuments(DocumentsDoublyLinkedList dl){
         ObservableList<Documents> files = FXCollections.observableArrayList();
         for(int i = 0; i < dl.getLength(); i++){
             files.add(dl.get(i));
@@ -295,6 +330,34 @@ public class Controller {
         sizeColumn.setSortable(false);
         dateColumn.setSortable(false);
 
-        resultsTable.setItems(getIndexedDocuments());
+        resultsTable.setItems(getIndexedDocuments(dl));
     }
+
+    private void buttonNameUp(MouseEvent e){
+        resultsTable.getItems().clear();
+        QuickSort.quickSort(dl, 0, dl.getLength()-1);
+        this.updateResultTable();
+    }
+
+    private void buttonNameDown(MouseEvent e){
+        resultsTable.getItems().clear();
+        QuickSort.quickSort(dl, 0, dl.getLength()-1);
+        dl.reverseList();
+        this.updateResultTable();
+    }
+
+    private void buttonDateUp(MouseEvent e){
+        resultsTable.getItems().clear();
+        BubbleSort.bubbleSort(dl);
+        this.updateResultTable();
+    }
+
+    private void buttonDateDown(MouseEvent e) {
+        resultsTable.getItems().clear();
+        BubbleSort.bubbleSort(dl);
+        dl.reverseList();
+        this.updateResultTable();
+    }
+
+
 }

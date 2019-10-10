@@ -1,10 +1,12 @@
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+
 import java.io.File;
+import java.net.MalformedURLException;
 
 public class Documents {
 
-    private File file;
-    private String path;
-    //private String text;
+    private String text;
     private String name;
     private String size;
     private String date;
@@ -13,10 +15,8 @@ public class Documents {
     protected Documents next = null;
     protected Documents prev = null;
 
-    public Documents(File file, String path, String name, String size, String date) {
-        this.file = file;
-        this.path = path;
-        //this.text = text;
+    public Documents(String text, String name, String size, String date) {
+        this.text = text;
         this.name = name;
         this.size = size;
         this.date = date;
@@ -42,17 +42,10 @@ public class Documents {
         }
         return result;
     }
-    public String getPath() {
-        return path;
-    }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+    public String getText() { return text; }
 
-    //public String getText() { return text; }
-
-   // public void setText(String text) { this.text = text; }
+    public void setText(String text) { this.text = text; }
 
     public String getName() {
         return name;
@@ -78,19 +71,10 @@ public class Documents {
         this.date = date;
     }
 
-    public File getFile() {
-        return file;
-    }
+    public int getRealSize() { return realSize; }
 
-    public void setFile(File file) {
-        this.file = file;
-    }
+    public void setRealSize(int realSize) { this.realSize = realSize; }
 
-    public int getRealSize() {
-        return realSize;
-    }
-
-    public void setRealSize(int realSize) {
-        this.realSize = realSize;
+    private void ButtonUp(MouseEvent event) {
     }
 }

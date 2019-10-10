@@ -1,5 +1,3 @@
-import java.io.File;
-
 public class QuickSort {
 
     public static void quickSort(DocumentsDoublyLinkedList dl, int beginning, int end){
@@ -42,22 +40,17 @@ public class QuickSort {
             return;
         }
         else{
-            File aFile = a.getFile();
-            String aPath = a.getPath();
-            //String aText;
+            String aText = a.getText();
             String aName = a.getName();
             String aSize = a.getSize();
             String aDate = a.getDate();
 
-            a.setFile(b.getFile());
-            a.setPath(b.getPath());
-            //a.setText(b.getText());
+            a.setText(b.getText());
             a.setName(b.getName());
             a.setSize(b.getSize());
             a.setDate(b.getDate());
 
-            b.setFile(aFile);
-            b.setPath(aPath);
+            b.setText(aText);
             b.setName(aName);
             b.setSize(aSize);
             b.setDate(aDate);

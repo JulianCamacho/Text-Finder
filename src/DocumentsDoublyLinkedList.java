@@ -62,13 +62,31 @@ public class DocumentsDoublyLinkedList {
             this.last = this.first;
         }
         else {
-            Documents newGate = addedDoc;
-            this.last.next = newGate;
-            newGate.prev = this.last;
-            this.last = newGate;
+            Documents newDoc = addedDoc;
+            this.last.next = newDoc;
+            newDoc.prev = this.last;
+            this.last = newDoc;
         }
     }
 
+    public void reverseList(){
+        Documents previous = null;
+        //change reference head becomes tail in reversal
+        this.last = this.first;
+        Documents current = this.first;
+        while(current != null){
+            // swap prev and next for the current node
+            previous = current.prev;
+            current.prev = current.next;
+            current.next = previous;
+            // to move to next node current.prev has to be called
+            // as that has reference to next node now
+            current = current.prev;
+        }
+        if(previous != null){
+            this.first = previous.prev;
+        }
+    }
 
     public int getLength() {
         return length;

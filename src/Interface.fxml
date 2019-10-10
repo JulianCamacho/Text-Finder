@@ -62,18 +62,43 @@
                                           <TextField fx:id="inputField" layoutX="28.0" layoutY="16.0" prefHeight="26.0" prefWidth="338.0" />
                                           <HBox alignment="CENTER_LEFT" layoutY="50.0" prefHeight="25.0" prefWidth="543.0">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="205.0" style="-fx-cursor: hand;" text="Text" textAlignment="CENTER" />
-                                                <Separator orientation="VERTICAL" prefHeight="37.0" prefWidth="9.0" />
-                                                <Label alignment="CENTER" prefHeight="17.0" prefWidth="106.0" style="-fx-cursor: hand;" text="Name" />
-                                                <Separator orientation="VERTICAL" prefHeight="20.0" prefWidth="6.0" />
-                                                <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="104.0" style="-fx-cursor: hand;" text="Size" />
-                                                <Separator orientation="VERTICAL" prefHeight="42.0" prefWidth="4.0" />
-                                                <Label alignment="CENTER" prefWidth="104.0" style="-fx-cursor: hand;" text="Date" />
+                                                <Separator orientation="VERTICAL" prefHeight="200.0">
+                                                   <HBox.margin>
+                                                      <Insets right="73.0" />
+                                                   </HBox.margin>
+                                                </Separator>
+                                                <Button fx:id="textUpBtn" mnemonicParsing="false" text="▲">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Button>
+                                                <Button fx:id="textDownBtn" mnemonicParsing="false" text="▼" />
+                                                <Separator orientation="VERTICAL" prefHeight="37.0" prefWidth="9.0">
+                                                   <HBox.margin>
+                                                      <Insets left="72.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </Separator>
+                                                <Button fx:id="nameUpBtn" mnemonicParsing="false" text="▲" />
+                                                <Button mnemonicParsing="false" text="▼" />
+                                                <Separator orientation="VERTICAL" prefHeight="20.0" prefWidth="6.0">
+                                                   <HBox.margin>
+                                                      <Insets left="27.0" right="27.0" />
+                                                   </HBox.margin>
+                                                </Separator>
+                                                <Button fx:id="sizeUpBtn" mnemonicParsing="false" text="▲" />
+                                                <Button fx:id="sizeDownBtn" mnemonicParsing="false" text="▼" />
+                                                <Separator orientation="VERTICAL" prefHeight="42.0" prefWidth="4.0">
+                                                   <HBox.margin>
+                                                      <Insets left="23.0" right="22.0" />
+                                                   </HBox.margin>
+                                                </Separator>
+                                                <Button fx:id="dateUpBtn" mnemonicParsing="false" text="▲" />
+                                                <Button fx:id="dateDownBtn" mnemonicParsing="false" text="▼" />
                                              </children>
                                           </HBox>
                                        </children>
                                     </AnchorPane>
-                                    <Separator prefHeight="4.0" prefWidth="486.0" />
+                                    <Separator fx:id="nameDownBtn" prefHeight="4.0" prefWidth="486.0" />
                                  </children>
                               </VBox>
                            </top>

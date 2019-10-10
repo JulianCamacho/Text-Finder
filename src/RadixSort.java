@@ -1,3 +1,4 @@
+import java.net.MalformedURLException;
 import java.util.Arrays;
 
 public class RadixSort {
@@ -41,17 +42,16 @@ public class RadixSort {
 
     // The main function to that sorts arr[] of size n using
     // Radix Sort
-    public static void radixsort(int arr[], int n) {
-        int[] result = new int[arr.length];
+    public static int[] radixsort(int arr[], int n) {
         // Find the maximum number to know number of digits
         int m = getMax(arr, n);
-
         // Do counting sort for every digit. Note that instead
         // of passing digit number, exp is passed. exp is 10^i
         // where i is current digit number
-        for (int exp = 1; m/exp > 0; exp *= 10)
+        for (int exp = 1; m/exp > 0; exp *= 10){
             countSort(arr, n, exp);
-
+        }
+        return arr;
     }
 
     public static int[] toIntArray(DocumentsDoublyLinkedList dl){
@@ -62,9 +62,16 @@ public class RadixSort {
         return result;
     }
 
-    public static DocumentsDoublyLinkedList backToDoublyList(){
-        return null;
+    public static DocumentsDoublyLinkedList backToDoublyList(int[] result, DocumentsDoublyLinkedList dl) throws MalformedURLException {
+        DocumentsDoublyLinkedList tmpList = dl;
+        dl.clearList();
+        for(int i = 0; i < result.length; i++){
+            for(int j = 0; j < tmpList.getLength(); j++){
+                if (result[i] == tmpList.get(i).getRealSize()){
+                    dl.addLast(tmpList.get(i));
+                }
+            }
+        }
+        return dl;
     }
-
-
 }
