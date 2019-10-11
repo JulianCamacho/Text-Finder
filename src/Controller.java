@@ -111,8 +111,8 @@ public class Controller {
     Button textDownBtn;
     @FXML
     Button nameUpBtn;
-    //@FXML
-    //Button nameDownBtn;
+    @FXML
+    Button nameDownBtn;
     @FXML
     Button sizeUpBtn;
     @FXML
@@ -169,15 +169,17 @@ public class Controller {
         searchBtn.setOnMouseClicked(this::ButtonSearch);
         namePane.setOnMouseClicked(this::ListViewClic);
 
+        textUpBtn.setOnMouseClicked(this::buttonTextUp);
+        textDownBtn.setOnMouseClicked(this::buttonTextDown);
+
         nameUpBtn.setOnMouseClicked(this::buttonNameUp);
-        //nameDownBtn.setOnMouseClicked(this::buttonNameDown);
+        nameDownBtn.setOnMouseClicked(this::buttonNameDown);
 
         dateUpBtn.setOnMouseClicked(this::buttonDateUp);
         dateDownBtn.setOnMouseClicked(this::buttonDateDown);
 
         searcher=new Searcher(this);
         inputField.setPromptText("Insert a word or phrase");
-        //deleteBtn.setGraphic(new ImageView(new Image("imgs/icon1.png")));
     }
 
 
@@ -193,10 +195,6 @@ public class Controller {
         this.clearSearchPane();
         this.documentsOnSearchPane=documents.toArray(new File[documents.size()]);
         for(int i=0; i<text.length;i++){
-            /*textPane.getItems().add(text[i]);
-            namePane.getItems().add(names[i]);
-            datePane.getItems().add(dates[i]);
-            sizePane.getItems().add(sizes[i]);*/
             try{
                 dl.addLast(new Documents(text[i], names[i], sizes[i], dates[i].substring(0, 10)));
             }catch (MalformedURLException e){
@@ -328,6 +326,19 @@ public class Controller {
         dateColumn.setSortable(false);
 
         resultsTable.setItems(getIndexedDocuments(dl));
+    }
+
+    private void buttonTextUp(MouseEvent e){
+        resultsTable.getItems().clear();
+        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
+        this.updateResultTable();
+    }
+
+    private void buttonTextDown(MouseEvent e){
+        resultsTable.getItems().clear();
+        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
+        dl.reverseList();
+        this.updateResultTable();
     }
 
     private void buttonNameUp(MouseEvent e){

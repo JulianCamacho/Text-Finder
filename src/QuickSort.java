@@ -56,5 +56,39 @@ public class QuickSort {
             b.setDate(aDate);
         }
     }
+
+    public static void textQuickSort(DocumentsDoublyLinkedList dl, int beginning, int end){
+        if (dl.isEmpty() || dl.getLength() == 0)
+            AlertBoxes.displayAlertBox("Exception", "Empty library");
+        if (beginning >= end)
+            return;
+        // pick the pivot
+        Documents pivot = dl.get(beginning + (end - beginning) / 2);
+
+        // make left < pivot and right > pivot
+        int i = beginning, j = end;
+        while (i <= j) {
+            while (dl.get(i).getText().compareTo(pivot.getText()) < 0) {
+                i++;
+            }
+
+            while (dl.get(j).getText().compareTo(pivot.getText()) > 0) {
+                j--;
+            }
+
+            if (i <= j) {
+                swap(dl.get(i), dl.get(j), dl);
+                i++;
+                j--;
+            }
+        }
+
+        // recursively sort two sub parts
+        if (beginning < j)
+            textQuickSort(dl, beginning, j);
+
+        if (end > i)
+            textQuickSort(dl, i, end);
+    }
 }
 
