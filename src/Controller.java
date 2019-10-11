@@ -178,6 +178,10 @@ public class Controller {
         searcher=new Searcher(this);
         inputField.setPromptText("Insert a word or phrase");
         //deleteBtn.setGraphic(new ImageView(new Image("imgs/icon1.png")));
+        textColumn.setResizable(false);
+        nameColumn.setResizable(false);
+        sizeColumn.setResizable(false);
+        dateColumn.setResizable(false);
     }
 
 
@@ -328,6 +332,7 @@ public class Controller {
         dateColumn.setSortable(false);
 
         resultsTable.setItems(getIndexedDocuments(dl));
+
     }
 
     private void buttonNameUp(MouseEvent e){
