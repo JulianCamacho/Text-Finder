@@ -243,15 +243,11 @@ public class Controller {
 
 
     private void ButtonMinus(MouseEvent event) {
-        //QuickSort.quickSort(dl, 0, dl.getLength()-1);
-        //BubbleSort.bubbleSort(dl);
-        try{
-            RadixSort.backToDoublyList(RadixSort.radixsort(RadixSort.toIntArray(dl), dl.getLength()), dl);
-        }catch (MalformedURLException e){
-            System.out.println("n");
+        int index = libraryListView.getSelectionModel().getSelectedIndex();
+        if (index >= 0){
+            libraryListView.getItems().remove(index);
+            this.documents.remove(index);
         }
-        dl.printList();
-        updateResultTable();
     }
 
     /**
@@ -317,6 +313,7 @@ public class Controller {
         for(int i = 0; i < dl.getLength(); i++){
             files.add(dl.get(i));
         }
+        System.out.println(files);
         return files;
     }
     private void updateResultTable(){
@@ -358,6 +355,5 @@ public class Controller {
         dl.reverseList();
         this.updateResultTable();
     }
-
 
 }

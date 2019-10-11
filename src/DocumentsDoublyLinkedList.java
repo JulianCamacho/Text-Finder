@@ -38,6 +38,36 @@ public class DocumentsDoublyLinkedList {
         }
     }
 
+    public void deleteAt(int index){
+        if (index > this.length-1 || this.first == null || index < 0){
+            System.out.println("Index out of range");
+        }
+        else{
+            int counter = 0;
+            Documents current = this.first;
+            while(counter < index){
+                current = current.next;
+                counter ++;
+            }
+            if (current == this.first){
+                Documents after = current.next;
+                after.prev = null;
+                this.first = after;
+            }
+            else if (current == this.last){
+                Documents before = current.prev;
+                before.next = null;
+                this.last = before;
+            } else {
+                Documents before = current.prev;
+                Documents after = current.next;
+                before.next = after;
+                after.prev = before;
+
+            }
+        }
+    }
+
     public void printList(){
         if (this.first == null){
             System.out.println("[]");
