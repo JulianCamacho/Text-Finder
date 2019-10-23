@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
@@ -112,8 +111,8 @@ public class Controller {
     Button textDownBtn;
     @FXML
     Button nameUpBtn;
-    @FXML
-    Button nameDownBtn;
+    //@FXML
+    //Button nameDownBtn;
     @FXML
     Button sizeUpBtn;
     @FXML
@@ -169,19 +168,20 @@ public class Controller {
         indexBtn.setOnMouseClicked(this::ButtonIndex);
         searchBtn.setOnMouseClicked(this::ButtonSearch);
         namePane.setOnMouseClicked(this::ListViewClic);
-        refreshBtn.setOnMouseClicked(this::ButtonRefreshAction);
-
-        textUpBtn.setOnMouseClicked(this::buttonTextUp);
-        textDownBtn.setOnMouseClicked(this::buttonTextDown);
 
         nameUpBtn.setOnMouseClicked(this::buttonNameUp);
-        nameDownBtn.setOnMouseClicked(this::buttonNameDown);
+        //nameDownBtn.setOnMouseClicked(this::buttonNameDown);
 
         dateUpBtn.setOnMouseClicked(this::buttonDateUp);
         dateDownBtn.setOnMouseClicked(this::buttonDateDown);
 
         searcher=new Searcher(this);
         inputField.setPromptText("Insert a word or phrase");
+        //deleteBtn.setGraphic(new ImageView(new Image("imgs/icon1.png")));
+        textColumn.setResizable(false);
+        nameColumn.setResizable(false);
+        sizeColumn.setResizable(false);
+        dateColumn.setResizable(false);
     }
 
 
@@ -197,6 +197,10 @@ public class Controller {
         this.clearSearchPane();
         this.documentsOnSearchPane=documents.toArray(new File[documents.size()]);
         for(int i=0; i<text.length;i++){
+            /*textPane.getItems().add(text[i]);
+            namePane.getItems().add(names[i]);
+            datePane.getItems().add(dates[i]);
+            sizePane.getItems().add(sizes[i]);*/
             try{
                 dl.addLast(new Documents(text[i], names[i], sizes[i], dates[i].substring(0, 10)));
             }catch (MalformedURLException e){
@@ -224,26 +228,13 @@ public class Controller {
      * @param event
      */
     public void ButtonPlusAction(MouseEvent event){
-        DirectoryChooser dc = new DirectoryChooser();
-        File selectedDirectory = new File(dc.showDialog(null).getAbsolutePath());
-        if (selectedDirectory != null) {
-            File[] subDir = selectedDirectory.listFiles();
-            System.out.println(subDir.length);
-            libraryListView.getItems().add(selectedDirectory.getName());
-            for (int i = 0; i < subDir.length; i++) {
-                libraryListView.getItems().add(subDir[i].getName());
-                this.documents.add(subDir[i]);
-            }
-        } else {
-            AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
-        }
-
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("pdf files", "*.pdf"),
                 new FileChooser.ExtensionFilter("docx files", "*.docx"),
                 new FileChooser.ExtensionFilter("txt files", "*.txt"));
         List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+
         if (selectedFiles != null){
             for(int i = 0; i < selectedFiles.size(); i++){
                 libraryListView.getItems().add(selectedFiles.get(i).getName());
@@ -252,9 +243,6 @@ public class Controller {
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
         }
-
-
-
     }
 
 
@@ -314,7 +302,7 @@ public class Controller {
      * @param e
      */
     private void ListViewClic(MouseEvent e) {
-        int index = libraryListView.getSelectionModel().getSelectedIndex();
+        int index = namePane.getSelectionModel().getSelectedIndex();
         try {
             Desktop.getDesktop().open(documentsOnSearchPane[index]);
             //RandomAccessFile raFile = new RandomAccessFile(documentsOnSearchPane[index], "r");
@@ -344,19 +332,7 @@ public class Controller {
         dateColumn.setSortable(false);
 
         resultsTable.setItems(getIndexedDocuments(dl));
-    }
 
-    private void buttonTextUp(MouseEvent e){
-        resultsTable.getItems().clear();
-        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
-        this.updateResultTable();
-    }
-
-    private void buttonTextDown(MouseEvent e){
-        resultsTable.getItems().clear();
-        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
-        dl.reverseList();
-        this.updateResultTable();
     }
 
     private void buttonNameUp(MouseEvent e){
@@ -383,23 +359,6 @@ public class Controller {
         BubbleSort.bubbleSort(dl);
         dl.reverseList();
         this.updateResultTable();
-    }
-
-    /**
-     * Listener del boton de refrescar la libreria
-     * @param event
-     */
-    public void ButtonRefreshAction(MouseEvent event){
-        DocumentsDoublyLinkedList preuva = new DocumentsDoublyLinkedList();
-        for (int k = 0, i = 27; k < 7; k++, i--) {
-            try {
-                preuva.addLast(new Documents("" + k, "" + k, "8973" + k + i + 1 + " bytes", "" + k));
-                preuva.addLast(new Documents("" + k, "" + k, "8973" + i + k + " bytes", "" + k));
-            } catch (MalformedURLException e) {
-                System.out.println("skuu");
-            }
-        }
-        RadixSort.backToDoublyList(RadixSort.radixsort(preuva.toIntArray(), preuva.getLength()-1), preuva).printList();
     }
 
 }
