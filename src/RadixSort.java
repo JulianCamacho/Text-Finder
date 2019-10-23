@@ -54,21 +54,11 @@ public class RadixSort {
         return arr;
     }
 
-    public static int[] toIntArray(DocumentsDoublyLinkedList dl){
-        int[] result = new int[dl.getLength()-1];
-        for(int i = 0; i < dl.getLength(); i++){
-            result[i] = dl.get(i).getRealSize();
-        }
-        return result;
-    }
-
-    public static DocumentsDoublyLinkedList backToDoublyList(int[] result, DocumentsDoublyLinkedList dl) throws MalformedURLException {
-        DocumentsDoublyLinkedList tmpList = dl;
-        dl.clearList();
-        for(int i = 0; i < result.length; i++){
-            for(int j = 0; j < tmpList.getLength(); j++){
-                if (result[i] == tmpList.get(i).getRealSize()){
-                    dl.addLast(tmpList.get(i));
+    public static DocumentsDoublyLinkedList backToDoublyList(int[] result, DocumentsDoublyLinkedList dl) {
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < dl.getLength(); j++) {
+                if (result[i] == dl.get(j).getRealSize()) {
+                    dl.set(i, dl.get(j));
                 }
             }
         }

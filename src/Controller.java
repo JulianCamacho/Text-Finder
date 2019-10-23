@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
@@ -168,6 +169,7 @@ public class Controller {
         indexBtn.setOnMouseClicked(this::ButtonIndex);
         searchBtn.setOnMouseClicked(this::ButtonSearch);
         namePane.setOnMouseClicked(this::ListViewClic);
+        refreshBtn.setOnMouseClicked(this::ButtonRefreshAction);
 
         textUpBtn.setOnMouseClicked(this::buttonTextUp);
         textDownBtn.setOnMouseClicked(this::buttonTextDown);
@@ -222,13 +224,26 @@ public class Controller {
      * @param event
      */
     public void ButtonPlusAction(MouseEvent event){
+        DirectoryChooser dc = new DirectoryChooser();
+        File selectedDirectory = new File(dc.showDialog(null).getAbsolutePath());
+        if (selectedDirectory != null) {
+            File[] subDir = selectedDirectory.listFiles();
+            System.out.println(subDir.length);
+            libraryListView.getItems().add(selectedDirectory.getName());
+            for (int i = 0; i < subDir.length; i++) {
+                libraryListView.getItems().add(subDir[i].getName());
+                this.documents.add(subDir[i]);
+            }
+        } else {
+            AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
+        }
+
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("pdf files", "*.pdf"),
                 new FileChooser.ExtensionFilter("docx files", "*.docx"),
                 new FileChooser.ExtensionFilter("txt files", "*.txt"));
         List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-
         if (selectedFiles != null){
             for(int i = 0; i < selectedFiles.size(); i++){
                 libraryListView.getItems().add(selectedFiles.get(i).getName());
@@ -237,6 +252,9 @@ public class Controller {
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
         }
+
+
+
     }
 
 
@@ -296,7 +314,7 @@ public class Controller {
      * @param e
      */
     private void ListViewClic(MouseEvent e) {
-        int index = namePane.getSelectionModel().getSelectedIndex();
+        int index = libraryListView.getSelectionModel().getSelectedIndex();
         try {
             Desktop.getDesktop().open(documentsOnSearchPane[index]);
             //RandomAccessFile raFile = new RandomAccessFile(documentsOnSearchPane[index], "r");
@@ -365,6 +383,23 @@ public class Controller {
         BubbleSort.bubbleSort(dl);
         dl.reverseList();
         this.updateResultTable();
+    }
+
+    /**
+     * Listener del boton de refrescar la libreria
+     * @param event
+     */
+    public void ButtonRefreshAction(MouseEvent event){
+        DocumentsDoublyLinkedList preuva = new DocumentsDoublyLinkedList();
+        for (int k = 0, i = 27; k < 7; k++, i--) {
+            try {
+                preuva.addLast(new Documents("" + k, "" + k, "8973" + k + i + 1 + " bytes", "" + k));
+                preuva.addLast(new Documents("" + k, "" + k, "8973" + i + k + " bytes", "" + k));
+            } catch (MalformedURLException e) {
+                System.out.println("skuu");
+            }
+        }
+        RadixSort.backToDoublyList(RadixSort.radixsort(preuva.toIntArray(), preuva.getLength()-1), preuva).printList();
     }
 
 }

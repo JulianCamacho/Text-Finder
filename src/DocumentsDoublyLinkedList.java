@@ -38,6 +38,21 @@ public class DocumentsDoublyLinkedList {
         }
     }
 
+    public void set(int index, Documents newDoc){
+        if (index > this.length-1 || this.first == null || index < 0){
+            System.out.println("Index out of range");
+        }
+        else{
+            int counter = 0;
+            Documents current = this.first;
+            while(counter < index){
+                current = current.next;
+                counter ++;
+            }
+            current = newDoc;
+        }
+    }
+
     public void deleteAt(int index){
         if (index > this.length-1 || this.first == null || index < 0){
             System.out.println("Index out of range");
@@ -120,5 +135,16 @@ public class DocumentsDoublyLinkedList {
 
     public int getLength() {
         return length;
+    }
+
+    public int[] toIntArray(){
+        int[] result = new int[this.length-1];
+        System.out.println(result.length);
+        for(int i = 0; i < length-1; i++){
+            result[i] = this.get(i).getRealSize();
+            //System.out.println(this.get(i).getRealSize());
+            System.out.println(result[i]);
+        }
+        return result;
     }
 }
