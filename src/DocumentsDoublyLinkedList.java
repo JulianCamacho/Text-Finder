@@ -13,6 +13,17 @@ public class DocumentsDoublyLinkedList {
         this.first = null;
     }
 
+    public DocumentsDoublyLinkedList(int quantity) {
+        this.first = null;
+        createVoidDocs(quantity);
+    }
+
+    private void createVoidDocs(int quantity){
+        for (int i = 0; i < quantity; i++){
+            this.addLast(new Documents("", "", "1", ""));
+        }
+    }
+
     public void clearList(){
         this.first = null;
         this.length = 0;
@@ -40,7 +51,7 @@ public class DocumentsDoublyLinkedList {
 
     public void set(int index, Documents newDoc){
         if (index > this.length-1 || this.first == null || index < 0){
-            System.out.println("Index out of range");
+            System.out.println("Index out of range...");
         }
         else{
             int counter = 0;
@@ -49,7 +60,11 @@ public class DocumentsDoublyLinkedList {
                 current = current.next;
                 counter ++;
             }
-            current = newDoc;
+            current.setText(newDoc.getText());
+            current.setName(newDoc.getName());
+            current.setSize(newDoc.getSize());
+            current.setDate(newDoc.getDate());
+            current.setRealSize(newDoc.getRealSize());
         }
     }
 
@@ -91,26 +106,25 @@ public class DocumentsDoublyLinkedList {
             Documents current = this.first;
             System.out.print("[");
             while (current.next != null) {
-                System.out.print(current.getName());
+                System.out.print(current.getRealSize());
                 System.out.print(", ");
                 current = current.next;
             }
-            System.out.print(current.getName());
+            System.out.print(current.getRealSize());
             System.out.println("]");
         }
     }
 
-    public void addLast(Documents addedDoc) throws MalformedURLException {
+    public void addLast(Documents addedDoc) {
         this.length ++;
         if (this.first == null){
             this.first = addedDoc;
             this.last = this.first;
         }
         else {
-            Documents newDoc = addedDoc;
-            this.last.next = newDoc;
-            newDoc.prev = this.last;
-            this.last = newDoc;
+            this.last.next = addedDoc;
+            addedDoc.prev = this.last;
+            this.last = addedDoc;
         }
     }
 
@@ -138,12 +152,9 @@ public class DocumentsDoublyLinkedList {
     }
 
     public int[] toIntArray(){
-        int[] result = new int[this.length-1];
-        System.out.println(result.length);
-        for(int i = 0; i < length-1; i++){
+        int[] result = new int[this.length];
+        for(int i = 0; i < length; i++){
             result[i] = this.get(i).getRealSize();
-            //System.out.println(this.get(i).getRealSize());
-            System.out.println(result[i]);
         }
         return result;
     }

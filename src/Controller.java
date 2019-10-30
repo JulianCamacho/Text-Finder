@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
@@ -111,8 +112,8 @@ public class Controller {
     Button textDownBtn;
     @FXML
     Button nameUpBtn;
-    //@FXML
-    //Button nameDownBtn;
+    @FXML
+    Button nameDownBtn;
     @FXML
     Button sizeUpBtn;
     @FXML
@@ -168,16 +169,23 @@ public class Controller {
         indexBtn.setOnMouseClicked(this::ButtonIndex);
         searchBtn.setOnMouseClicked(this::ButtonSearch);
         namePane.setOnMouseClicked(this::ListViewClic);
+        refreshBtn.setOnMouseClicked(this::ButtonRefreshAction);
+
+        textUpBtn.setOnMouseClicked(this::buttonTextUp);
+        textDownBtn.setOnMouseClicked(this::buttonTextDown);
 
         nameUpBtn.setOnMouseClicked(this::buttonNameUp);
-        //nameDownBtn.setOnMouseClicked(this::buttonNameDown);
+        nameDownBtn.setOnMouseClicked(this::buttonNameDown);
 
         dateUpBtn.setOnMouseClicked(this::buttonDateUp);
         dateDownBtn.setOnMouseClicked(this::buttonDateDown);
 
+        sizeUpBtn.setOnMouseClicked(this::buttonSizeUp);
+        sizeDownBtn.setOnMouseClicked(this::buttonSizeDown);
+
         searcher=new Searcher(this);
         inputField.setPromptText("Insert a word or phrase");
-        //deleteBtn.setGraphic(new ImageView(new Image("imgs/icon1.png")));
+
         textColumn.setResizable(false);
         nameColumn.setResizable(false);
         sizeColumn.setResizable(false);
@@ -197,15 +205,7 @@ public class Controller {
         this.clearSearchPane();
         this.documentsOnSearchPane=documents.toArray(new File[documents.size()]);
         for(int i=0; i<text.length;i++){
-            /*textPane.getItems().add(text[i]);
-            namePane.getItems().add(names[i]);
-            datePane.getItems().add(dates[i]);
-            sizePane.getItems().add(sizes[i]);*/
-            try{
-                dl.addLast(new Documents(text[i], names[i], sizes[i], dates[i].substring(0, 10)));
-            }catch (MalformedURLException e){
-                AlertBoxes.displayAlertBox("Exception", "An error occurred with the file");
-            }
+            dl.addLast(new Documents(text[i], names[i], sizes[i], dates[i].substring(0, 10)));
             this.updateResultTable();
 
         }
@@ -228,21 +228,37 @@ public class Controller {
      * @param event
      */
     public void ButtonPlusAction(MouseEvent event){
+        DirectoryChooser dc = new DirectoryChooser();
+        try{
+            File selectedDirectory = new File(dc.showDialog(null).getAbsolutePath());
+            File[] subDir = selectedDirectory.listFiles();
+            System.out.println(subDir.length);
+            libraryListView.getItems().add(selectedDirectory.getName());
+            for (int i = 0; i < subDir.length; i++) {
+                libraryListView.getItems().add(subDir[i].getName());
+                this.documents.add(subDir[i]);
+            }
+        } catch (NullPointerException e){
+            AlertBoxes.displayAlertBox("Exception", "No directory selected");
+        }
+
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("pdf files", "*.pdf"),
                 new FileChooser.ExtensionFilter("docx files", "*.docx"),
                 new FileChooser.ExtensionFilter("txt files", "*.txt"));
         List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-
         if (selectedFiles != null){
             for(int i = 0; i < selectedFiles.size(); i++){
                 libraryListView.getItems().add(selectedFiles.get(i).getName());
                 this.documents.addAll(selectedFiles);
             }
         } else {
-            AlertBoxes.displayResultAlertBox("Exception", "Invalid file");
+            AlertBoxes.displayResultAlertBox("Exception", "No file selected or invalid file");
         }
+
+
+
     }
 
 
@@ -302,7 +318,7 @@ public class Controller {
      * @param e
      */
     private void ListViewClic(MouseEvent e) {
-        int index = namePane.getSelectionModel().getSelectedIndex();
+        int index = libraryListView.getSelectionModel().getSelectedIndex();
         try {
             Desktop.getDesktop().open(documentsOnSearchPane[index]);
             //RandomAccessFile raFile = new RandomAccessFile(documentsOnSearchPane[index], "r");
@@ -335,6 +351,19 @@ public class Controller {
 
     }
 
+    private void buttonTextUp(MouseEvent e){
+        resultsTable.getItems().clear();
+        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
+        this.updateResultTable();
+    }
+
+    private void buttonTextDown(MouseEvent e){
+        resultsTable.getItems().clear();
+        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
+        dl.reverseList();
+        this.updateResultTable();
+    }
+
     private void buttonNameUp(MouseEvent e){
         resultsTable.getItems().clear();
         QuickSort.quickSort(dl, 0, dl.getLength()-1);
@@ -359,6 +388,48 @@ public class Controller {
         BubbleSort.bubbleSort(dl);
         dl.reverseList();
         this.updateResultTable();
+    }
+
+    private void buttonSizeUp(MouseEvent e){
+        if (dl.isEmpty()){
+            AlertBoxes.displayAlertBox("Empty", "Empty library");
+        } else{
+            resultsTable.getItems().clear();
+            dl.printList();
+            RadixSort.myRadixsort(dl, dl.getLength()-1);
+            dl.printList();
+            this.updateResultTable();
+        }
+    }
+
+    private void buttonSizeDown(MouseEvent e) {
+        if (dl.isEmpty()){
+            AlertBoxes.displayAlertBox("Empty", "Empty library");
+        } else{
+            resultsTable.getItems().clear();
+            dl.printList();
+            RadixSort.myRadixsort(dl, dl.getLength()-1);
+            dl.reverseList();
+            dl.printList();
+            this.updateResultTable();
+        }
+    }
+
+    /**
+     * Listener del boton de refrescar la libreria
+     * @param event
+     */
+    public void ButtonRefreshAction(MouseEvent event){
+        DocumentsDoublyLinkedList preuva = new DocumentsDoublyLinkedList();
+        for (int k = 5; k < 60; k += 5) {
+            preuva.addLast(new Documents("" + (k + 2), "" + k,(k + 2) + " bytes","" + k));
+            preuva.addLast(new Documents("" + (k - 4), "" + k, (k - 4) + " bytes", "" + k));
+        }
+        preuva.printList();
+        RadixSort.myRadixsort(preuva, preuva.getLength());
+        preuva.printList();
+        preuva.reverseList();
+        preuva.printList();
     }
 
 }

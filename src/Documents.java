@@ -1,9 +1,3 @@
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-
-import java.io.File;
-import java.net.MalformedURLException;
-
 public class Documents {
 
     private String text;
@@ -60,7 +54,4 @@ public class Documents {
     public int getRealSize() { return realSize; }
 
     public void setRealSize(int realSize) { this.realSize = realSize; }
-
-    private void ButtonUp(MouseEvent event) {
-    }
 }
