@@ -192,9 +192,14 @@ public class Searcher {
      * @return Contenido del documento
      */
     private String[][] getContent(File document){
-        int index= controller.getDocuments().indexOf(document);
-        String[][] content = controller.getContents().get(index);
-        return content;
+        try{
+            int index= controller.getDocuments().indexOf(document);
+            String[][] content = controller.getContents().get(index);
+            return content;
+        } catch (ArrayIndexOutOfBoundsException e){
+            AlertBoxes.displayAlertBox("Exception", "An error occurred");
+            return null;
+        }
     }
 
     /**

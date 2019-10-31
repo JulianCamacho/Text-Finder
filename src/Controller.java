@@ -214,10 +214,8 @@ public class Controller {
      * Metodo para reiniciar el panel de palabras encontradas
      */
     private void clearSearchPane(){
-        textPane.getItems().clear();
-        namePane.getItems().clear();
-        datePane.getItems().clear();
-        sizePane.getItems().clear();
+        resultsTable.getItems().clear();
+        dl.clearList();
     }
 
     /**
@@ -249,7 +247,7 @@ public class Controller {
                 }
             }
         } catch (NullPointerException e){
-            AlertBoxes.displayAlertBox("Exception", "No directory selected");
+            AlertBoxes.displayResultAlertBox("Exception", "No directory selected");
         }
 
         FileChooser fc = new FileChooser();
@@ -282,6 +280,7 @@ public class Controller {
         int index = libraryListView.getSelectionModel().getSelectedIndex();
         if (index >= 0){
             libraryListView.getItems().remove(index);
+            System.out.println(this.documents.remove(index).getName());
             this.documents.remove(index);
         }
     }
@@ -326,6 +325,7 @@ public class Controller {
      * @param e
      */
     private void ButtonSearch(MouseEvent e){
+        this.clearSearchPane();
         searcher.search(inputField.getText());
     }
 
