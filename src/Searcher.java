@@ -145,7 +145,7 @@ public class Searcher {
                         break;
                     }
                     index2++;
-                }catch (IndexOutOfBoundsException e){
+                }catch (IndexOutOfBoundsException | NullPointerException e){
                     index1++;
                     if(index1<content.length) {
 

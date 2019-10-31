@@ -1,3 +1,4 @@
+import java.io.File;
 import java.net.MalformedURLException;
 
 /**
@@ -20,7 +21,7 @@ public class DocumentsDoublyLinkedList {
 
     private void createVoidDocs(int quantity){
         for (int i = 0; i < quantity; i++){
-            this.addLast(new Documents("", "", "1", ""));
+            this.addLast(new Documents("", "", "", "1", ""));
         }
     }
 

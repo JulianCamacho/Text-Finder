@@ -168,7 +168,7 @@ public class Controller {
         deleteBtn.setOnMouseClicked(this::ButtonMinus);
         indexBtn.setOnMouseClicked(this::ButtonIndex);
         searchBtn.setOnMouseClicked(this::ButtonSearch);
-        namePane.setOnMouseClicked(this::ListViewClic);
+        resultsTable.setOnMouseClicked(this::ListViewClic);
         refreshBtn.setOnMouseClicked(this::ButtonRefreshAction);
 
         textUpBtn.setOnMouseClicked(this::buttonTextUp);
@@ -205,12 +205,9 @@ public class Controller {
         this.clearSearchPane();
         this.documentsOnSearchPane=documents.toArray(new File[documents.size()]);
         for(int i=0; i<text.length;i++){
-            dl.addLast(new Documents(text[i], names[i], sizes[i], dates[i].substring(0, 10)));
+            dl.addLast(new Documents(documents.get(i).getAbsolutePath(), text[i], names[i], sizes[i], dates[i].substring(0, 10)));
             this.updateResultTable();
-
         }
-
-
     }
 
     /**
@@ -232,11 +229,13 @@ public class Controller {
         try{
             File selectedDirectory = new File(dc.showDialog(null).getAbsolutePath());
             File[] subDir = selectedDirectory.listFiles();
-            System.out.println(subDir.length);
             libraryListView.getItems().add(selectedDirectory.getName());
             for (int i = 0; i < subDir.length; i++) {
-                libraryListView.getItems().add(subDir[i].getName());
-                this.documents.add(subDir[i]);
+                if (getFileExtension(subDir[i]).equals("pdf") || getFileExtension(subDir[i]).equals("docx") || getFileExtension(subDir[i]).equals("txt")){
+                    libraryListView.getItems().add(subDir[i].getName());
+                    System.out.println(this.getFileExtension(subDir[i]).length());
+                    this.documents.add(subDir[i]);
+                }
             }
         } catch (NullPointerException e){
             AlertBoxes.displayAlertBox("Exception", "No directory selected");
@@ -256,9 +255,6 @@ public class Controller {
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "No file selected or invalid file");
         }
-
-
-
     }
 
 
@@ -314,15 +310,16 @@ public class Controller {
     }
 
     /**
-     * Listener para eventos de selecion del nombre en la listview de nombres
+     * Listener para eventos de seleccion del nombre en la listview de nombres
      * @param e
      */
     private void ListViewClic(MouseEvent e) {
-        int index = libraryListView.getSelectionModel().getSelectedIndex();
+        Documents current = resultsTable.getSelectionModel().getSelectedItem();
         try {
-            Desktop.getDesktop().open(documentsOnSearchPane[index]);
-            //RandomAccessFile raFile = new RandomAccessFile(documentsOnSearchPane[index], "r");
-            //raFile.seek(500);
+            //Desktop.getDesktop().open(documentsOnSearchPane[index]);
+            Desktop.getDesktop().open(current.getFile());
+            System.out.println(current.getFile());
+            System.out.println(current.getAbsPath());
         } catch (IOException | NullPointerException | ArrayIndexOutOfBoundsException ex) {
             AlertBoxes.displayAlertBox("Error", "File not found");
         }
@@ -422,8 +419,8 @@ public class Controller {
     public void ButtonRefreshAction(MouseEvent event){
         DocumentsDoublyLinkedList preuva = new DocumentsDoublyLinkedList();
         for (int k = 5; k < 60; k += 5) {
-            preuva.addLast(new Documents("" + (k + 2), "" + k,(k + 2) + " bytes","" + k));
-            preuva.addLast(new Documents("" + (k - 4), "" + k, (k - 4) + " bytes", "" + k));
+            //preuva.addLast(new Documents(new File(""), "" + (k + 2), "" + k,(k + 2) + " bytes","" + k));
+            //preuva.addLast(new Documents(new File(" "), "" + (k - 4), "" + k, (k - 4) + " bytes", "" + k));
         }
         preuva.printList();
         RadixSort.myRadixsort(preuva, preuva.getLength());
@@ -432,4 +429,13 @@ public class Controller {
         preuva.printList();
     }
 
+    /**
+     * Metodo para obtener la extension de un archivo
+     * @param file Archivo
+     * @return Extension del archivo
+     */
+    private static String getFileExtension(File file){
+        int extensionStart = file.getName().lastIndexOf(".");
+        return file.getName().substring(extensionStart+1);
+    }
 }
