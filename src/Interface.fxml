@@ -14,14 +14,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <SplitPane dividerPositions="0.232" layoutX="176.0" layoutY="136.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="696.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="145.0" SplitPane.resizableWithParent="false">
+                <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="145.0" style="-fx-background-color: #696969;" SplitPane.resizableWithParent="false">
                      <children>
                         <HBox alignment="CENTER" layoutY="341.0" prefHeight="57.0" prefWidth="144.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <children>
@@ -35,17 +36,20 @@
                         </HBox>
                         <ScrollPane hbarPolicy="NEVER" layoutY="50.0" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="144.0">
                                  <children>
                                     <VBox fx:id="libraryPane" prefHeight="261.0" prefWidth="144.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <ListView fx:id="libraryListView" prefHeight="321.0" prefWidth="144.0" />
+                                          <ListView fx:id="libraryListView" prefHeight="381.0" prefWidth="144.0" />
                                        </children></VBox>
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <Label layoutX="58.0" layoutY="21.0" prefHeight="17.0" prefWidth="38.0" text="Library" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="21.0" />
+                        <Label layoutX="51.0" layoutY="21.0" prefHeight="20.0" prefWidth="45.0" text="Library" textFill="#fcfcfc" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="21.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
                         <Button fx:id="indexBtn" layoutX="21.0" layoutY="322.0" mnemonicParsing="false" text="Index" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="21.0" />
                         <Button fx:id="refreshBtn" layoutX="73.0" layoutY="322.0" mnemonicParsing="false" text="Refresh" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="73.0" />
                      </children>
@@ -56,15 +60,15 @@
                            <top>
                               <VBox prefHeight="83.0" prefWidth="543.0" BorderPane.alignment="CENTER">
                                  <children>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="486.0">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="486.0" style="-fx-background-color: #696969;">
                                        <children>
                                           <Button fx:id="searchBtn" layoutX="393.0" layoutY="12.0" mnemonicParsing="false" text="Search" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="12.0" />
                                           <TextField fx:id="inputField" layoutX="28.0" layoutY="16.0" prefHeight="26.0" prefWidth="338.0" />
-                                          <HBox alignment="CENTER_LEFT" layoutY="50.0" prefHeight="25.0" prefWidth="543.0">
+                                          <HBox alignment="CENTER_LEFT" layoutY="50.0" prefHeight="25.0" prefWidth="622.0">
                                              <children>
                                                 <Separator orientation="VERTICAL" prefHeight="200.0">
                                                    <HBox.margin>
-                                                      <Insets right="73.0" />
+                                                      <Insets right="116.0" />
                                                    </HBox.margin>
                                                 </Separator>
                                                 <Button fx:id="textUpBtn" mnemonicParsing="false" text="▲">
@@ -75,21 +79,21 @@
                                                 <Button fx:id="textDownBtn" mnemonicParsing="false" text="▼" />
                                                 <Separator orientation="VERTICAL" prefHeight="37.0" prefWidth="9.0">
                                                    <HBox.margin>
-                                                      <Insets left="72.0" right="25.0" />
+                                                      <Insets left="117.0" right="36.0" />
                                                    </HBox.margin>
                                                 </Separator>
                                                 <Button fx:id="nameUpBtn" mnemonicParsing="false" text="▲" />
                                                 <Button fx:id="nameDownBtn" mnemonicParsing="false" text="▼" />
                                                 <Separator orientation="VERTICAL" prefHeight="20.0" prefWidth="6.0">
                                                    <HBox.margin>
-                                                      <Insets left="27.0" right="27.0" />
+                                                      <Insets left="38.0" right="12.0" />
                                                    </HBox.margin>
                                                 </Separator>
                                                 <Button fx:id="sizeUpBtn" mnemonicParsing="false" text="▲" />
                                                 <Button fx:id="sizeDownBtn" mnemonicParsing="false" text="▼" />
                                                 <Separator orientation="VERTICAL" prefHeight="42.0" prefWidth="4.0">
                                                    <HBox.margin>
-                                                      <Insets left="23.0" right="22.0" />
+                                                      <Insets left="20.0" right="18.0" />
                                                    </HBox.margin>
                                                 </Separator>
                                                 <Button fx:id="dateUpBtn" mnemonicParsing="false" text="▲" />
@@ -107,9 +111,9 @@
                                  <children>
                                     <ScrollPane hbarPolicy="NEVER" layoutY="-9.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="309.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                                       <content>
-                                        <AnchorPane fx:id="searchPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="542.0">
+                                        <AnchorPane fx:id="searchPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="620.0">
                                              <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="365.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <HBox alignment="CENTER_LEFT" prefHeight="433.0" prefWidth="622.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                                                    <children>
                                                       <ListView fx:id="textPane" prefHeight="383.0" prefWidth="297.0" />
                                                       <ListView fx:id="namePane" prefHeight="383.0" prefWidth="204.0" style="-fx-cursor: hand;" />
@@ -117,12 +121,12 @@
                                                       <ListView fx:id="datePane" prefHeight="200.0" prefWidth="200.0" />
                                                    </children>
                                                 </HBox>
-                                                <TableView fx:id="resultsTable" prefHeight="385.0" prefWidth="543.0">
+                                                <TableView fx:id="resultsTable" prefHeight="436.0" prefWidth="622.0">
                                                   <columns>
-                                                    <TableColumn fx:id="textColumn" prefWidth="207.0" text="Text" />
-                                                    <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="113.0" text="Name" />
-                                                      <TableColumn fx:id="sizeColumn" minWidth="7.0" prefWidth="110.0" text="Size" />
-                                                      <TableColumn fx:id="dateColumn" prefWidth="112.0" text="Date" />
+                                                    <TableColumn fx:id="textColumn" prefWidth="295.0" text="Text" />
+                                                    <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="135.0" text="Name" />
+                                                      <TableColumn fx:id="sizeColumn" minWidth="7.0" prefWidth="92.0" text="Size" />
+                                                      <TableColumn fx:id="dateColumn" prefWidth="97.0" text="Date" />
                                                   </columns>
                                                 </TableView>
                                              </children>

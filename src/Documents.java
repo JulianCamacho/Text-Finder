@@ -69,15 +69,9 @@ public class Documents {
 
     public void setRealSize(int realSize) { this.realSize = realSize; }
 
-    public File getFile() {
-        return file;
-    }
+    public File getFile() { return file; }
 
-    public String getAbsPath() {
-        return absPath;
-    }
+    public String getAbsPath() { return absPath; }
 
-    public void setAbsPath(String absPath) {
-        this.absPath = absPath;
-    }
+    public void setAbsPath(String absPath) { this.absPath = absPath; }
 }

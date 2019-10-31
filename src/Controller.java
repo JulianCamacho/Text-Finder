@@ -232,9 +232,20 @@ public class Controller {
             libraryListView.getItems().add(selectedDirectory.getName());
             for (int i = 0; i < subDir.length; i++) {
                 if (getFileExtension(subDir[i]).equals("pdf") || getFileExtension(subDir[i]).equals("docx") || getFileExtension(subDir[i]).equals("txt")){
-                    libraryListView.getItems().add(subDir[i].getName());
-                    System.out.println(this.getFileExtension(subDir[i]).length());
-                    this.documents.add(subDir[i]);
+                    /*System.out.println(documents.size());
+                    if (this.documents.size() != 0){
+                        for (int h = 0; h < this.documents.size(); h++) {
+                            System.out.println(subDir[i].getName());
+                            System.out.println(documents.get(h).getName());
+                            if (!subDir[i].getName().equals(this.documents.get(h).getName())){
+                                libraryListView.getItems().add(subDir[i].getName());
+                                this.documents.add(subDir[i]);
+                            }
+                        }
+                    } else{*/
+                        libraryListView.getItems().add(subDir[i].getName());
+                        this.documents.add(subDir[i]);
+                    //}
                 }
             }
         } catch (NullPointerException e){
@@ -249,8 +260,17 @@ public class Controller {
         List<File> selectedFiles = fc.showOpenMultipleDialog(null);
         if (selectedFiles != null){
             for(int i = 0; i < selectedFiles.size(); i++){
-                libraryListView.getItems().add(selectedFiles.get(i).getName());
-                this.documents.addAll(selectedFiles);
+                /*if (this.documents.size() != 0){
+                    for (int h = 0; h < this.documents.size(); h++) {
+                        if (!selectedFiles.get(i).getName().equals(this.documents.get(h).getName())){
+                            libraryListView.getItems().add(selectedFiles.get(i).getName());
+                            this.documents.addAll(selectedFiles);
+                        }
+                    }
+                } else{*/
+                    libraryListView.getItems().add(selectedFiles.get(i).getName());
+                    this.documents.addAll(selectedFiles);
+                //}
             }
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "No file selected or invalid file");
@@ -316,7 +336,6 @@ public class Controller {
     private void ListViewClic(MouseEvent e) {
         Documents current = resultsTable.getSelectionModel().getSelectedItem();
         try {
-            //Desktop.getDesktop().open(documentsOnSearchPane[index]);
             Desktop.getDesktop().open(current.getFile());
             System.out.println(current.getFile());
             System.out.println(current.getAbsPath());
@@ -330,9 +349,9 @@ public class Controller {
         for(int i = 0; i < dl.getLength(); i++){
             files.add(dl.get(i));
         }
-        System.out.println(files);
         return files;
     }
+
     private void updateResultTable(){
         textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -417,16 +436,18 @@ public class Controller {
      * @param event
      */
     public void ButtonRefreshAction(MouseEvent event){
-        DocumentsDoublyLinkedList preuva = new DocumentsDoublyLinkedList();
-        for (int k = 5; k < 60; k += 5) {
-            //preuva.addLast(new Documents(new File(""), "" + (k + 2), "" + k,(k + 2) + " bytes","" + k));
-            //preuva.addLast(new Documents(new File(" "), "" + (k - 4), "" + k, (k - 4) + " bytes", "" + k));
+        contents=new ArrayList<>();
+        Tree tree= Tree.getInstance();
+        tree.clear();
+        for(File doc:this.documents){
+            try {
+                contents.add(ParserFacade.parse(doc));
+            } catch ( IOException e) {
+                AlertBoxes.displayAlertBox("Error", "An error has ocurred while reading "+doc.getName());
+                String[][] result={{""}};
+                contents.add(result);
+            }
         }
-        preuva.printList();
-        RadixSort.myRadixsort(preuva, preuva.getLength());
-        preuva.printList();
-        preuva.reverseList();
-        preuva.printList();
     }
 
     /**

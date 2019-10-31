@@ -40,16 +40,19 @@ public class QuickSort {
             return;
         }
         else{
+            String aPath = a.getAbsPath();
             String aText = a.getText();
             String aName = a.getName();
             String aSize = a.getSize();
             String aDate = a.getDate();
 
+            a.setAbsPath(b.getAbsPath());
             a.setText(b.getText());
             a.setName(b.getName());
             a.setSize(b.getSize());
             a.setDate(b.getDate());
 
+            b.setAbsPath(aPath);
             b.setText(aText);
             b.setName(aName);
             b.setSize(aSize);
