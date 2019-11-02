@@ -213,18 +213,15 @@ public class Searcher {
         String[][] content =this.getContent(document);
         String context="...";
 
-        for(int j=linePos-5;j<linePos+5;j++){
+        for(int j=linePos-50;j<linePos+50;j++){
             try {
-
-
                 if (content[lineNumber][j] != null) {
                     context += content[lineNumber][j]+" ";
                 }
             }catch (IndexOutOfBoundsException e){
-
+                //AlertBoxes.displayAlertBox("Exception", "An error occurred when reading" + document.getName());
             }
         }
-
         return context+"...";
     }
 

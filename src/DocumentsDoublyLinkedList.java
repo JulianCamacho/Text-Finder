@@ -1,6 +1,3 @@
-import java.io.File;
-import java.net.MalformedURLException;
-
 /**
  * Lista doblemente enlazada de documentos
  */
@@ -21,7 +18,7 @@ public class DocumentsDoublyLinkedList {
 
     private void createVoidDocs(int quantity){
         for (int i = 0; i < quantity; i++){
-            this.addLast(new Documents("", "", "", "1", ""));
+            this.addLast(new Documents("", "", "", "1", "", ""));
         }
     }
 
@@ -61,6 +58,9 @@ public class DocumentsDoublyLinkedList {
                 current = current.next;
                 counter ++;
             }
+            current.setTextFlow(newDoc.getTextFlow());
+            current.setAbsPath(newDoc.getAbsPath());
+            current.toFile(current.getAbsPath());
             current.setText(newDoc.getText());
             current.setName(newDoc.getName());
             current.setSize(newDoc.getSize());

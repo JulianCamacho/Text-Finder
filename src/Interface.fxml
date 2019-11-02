@@ -71,15 +71,9 @@
                                                       <Insets right="116.0" />
                                                    </HBox.margin>
                                                 </Separator>
-                                                <Button fx:id="textUpBtn" mnemonicParsing="false" text="▲">
-                                                   <HBox.margin>
-                                                      <Insets />
-                                                   </HBox.margin>
-                                                </Button>
-                                                <Button fx:id="textDownBtn" mnemonicParsing="false" text="▼" />
                                                 <Separator orientation="VERTICAL" prefHeight="37.0" prefWidth="9.0">
                                                    <HBox.margin>
-                                                      <Insets left="117.0" right="36.0" />
+                                                      <Insets left="171.0" right="36.0" />
                                                    </HBox.margin>
                                                 </Separator>
                                                 <Button fx:id="nameUpBtn" mnemonicParsing="false" text="▲" />

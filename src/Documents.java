@@ -1,4 +1,11 @@
+import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
+
 import java.io.File;
+import java.text.Normalizer;
 
 public class Documents {
 
@@ -9,11 +16,12 @@ public class Documents {
     private String size;
     private String date;
     private int realSize;
+    private TextFlow textFlow;
 
     protected Documents next = null;
     protected Documents prev = null;
 
-    public Documents(String absPath, String text, String name, String size, String date) {
+    public Documents(String absPath, String text, String name, String size, String date, String phrase) {
         this.absPath = absPath;
         toFile(absPath);
         this.text = text;
@@ -21,6 +29,44 @@ public class Documents {
         this.size = size;
         this.date = date;
         this.realSize = toInt(this.size);
+        this.textFlow = createTexts(phrase);
+    }
+
+    public TextFlow createTexts(String phrase){
+        String completeText = clearAccent(this.text);
+        String target = clearAccent(phrase);
+        String[] words = completeText.split("\\W+");
+
+        TextFlow result = new TextFlow();
+        result.setTextAlignment(TextAlignment.JUSTIFY);
+        result.setPrefSize(295, 80);
+        ObservableList list = result.getChildren();
+
+        for (String word : words) {
+            if (target.contains(word)) {
+                Text newText = new Text(word + " ");
+                newText.setUnderline(true);
+                newText.setFill(Color.DARKGOLDENROD);
+                list.add(newText);
+            } else if (!target.contains(word)){
+                list.add(new Text(word + " "));
+            }
+        }
+        return result;
+    }
+
+    public static String clearAccent(String cadena) {
+        String limpio =null;
+        if (cadena !=null) {
+            String valor = cadena;
+            // Normalizar texto para eliminar acentos, dieresis, cedillas y tildes
+            limpio = Normalizer.normalize(valor, Normalizer.Form.NFD);
+            // Quitar caracteres no ASCII excepto la enie, interrogacion que abre, exclamacion que abre, grados, U con dieresis.
+            limpio = limpio.replaceAll("[^\\p{ASCII}(N\u0303)(n\u0303)(\u00A1)(\u00BF)(\u00B0)(U\u0308)(u\u0308)]", "");
+            // Regresar a la forma compuesta, para poder comparar la enie con la tabla de valores
+            limpio = Normalizer.normalize(limpio, Normalizer.Form.NFC);
+        }
+        return limpio;
     }
 
     public void toFile(String path){
@@ -74,4 +120,12 @@ public class Documents {
     public String getAbsPath() { return absPath; }
 
     public void setAbsPath(String absPath) { this.absPath = absPath; }
+
+    public TextFlow getTextFlow() {
+        return textFlow;
+    }
+
+    public void setTextFlow(TextFlow textFlow) {
+        this.textFlow = textFlow;
+    }
 }

@@ -1,25 +1,23 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,11 +103,6 @@ public class Controller {
     /**
      * Botones para ordenamiento
      */
-
-    @FXML
-    Button textUpBtn;
-    @FXML
-    Button textDownBtn;
     @FXML
     Button nameUpBtn;
     @FXML
@@ -171,9 +164,6 @@ public class Controller {
         resultsTable.setOnMouseClicked(this::ListViewClic);
         refreshBtn.setOnMouseClicked(this::ButtonRefreshAction);
 
-        textUpBtn.setOnMouseClicked(this::buttonTextUp);
-        textDownBtn.setOnMouseClicked(this::buttonTextDown);
-
         nameUpBtn.setOnMouseClicked(this::buttonNameUp);
         nameDownBtn.setOnMouseClicked(this::buttonNameDown);
 
@@ -205,7 +195,7 @@ public class Controller {
         this.clearSearchPane();
         this.documentsOnSearchPane=documents.toArray(new File[documents.size()]);
         for(int i=0; i<text.length;i++){
-            dl.addLast(new Documents(documents.get(i).getAbsolutePath(), text[i], names[i], sizes[i], dates[i].substring(0, 10)));
+            dl.addLast(new Documents(documents.get(i).getAbsolutePath(), text[i], lowerCase(names[i]), sizes[i], dates[i].substring(0, 10), inputField.getText()));
             this.updateResultTable();
         }
     }
@@ -227,7 +217,10 @@ public class Controller {
         try{
             File selectedDirectory = new File(dc.showDialog(null).getAbsolutePath());
             File[] subDir = selectedDirectory.listFiles();
-            libraryListView.getItems().add(selectedDirectory.getName());
+            Text dirName = new Text(selectedDirectory.getName());
+            dirName.setFill(Color.DARKBLUE);
+            dirName.setUnderline(true);
+            libraryListView.getItems().add(dirName);
             for (int i = 0; i < subDir.length; i++) {
                 if (getFileExtension(subDir[i]).equals("pdf") || getFileExtension(subDir[i]).equals("docx") || getFileExtension(subDir[i]).equals("txt")){
                     /*System.out.println(documents.size());
@@ -353,7 +346,7 @@ public class Controller {
     }
 
     private void updateResultTable(){
-        textColumn.setCellValueFactory(new PropertyValueFactory<>("text"));
+        textColumn.setCellValueFactory(new PropertyValueFactory<>("textFlow"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         sizeColumn.setCellValueFactory(new PropertyValueFactory<>("size"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -365,19 +358,6 @@ public class Controller {
 
         resultsTable.setItems(getIndexedDocuments(dl));
 
-    }
-
-    private void buttonTextUp(MouseEvent e){
-        resultsTable.getItems().clear();
-        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
-        this.updateResultTable();
-    }
-
-    private void buttonTextDown(MouseEvent e){
-        resultsTable.getItems().clear();
-        QuickSort.textQuickSort(dl, 0, dl.getLength()-1);
-        dl.reverseList();
-        this.updateResultTable();
     }
 
     private void buttonNameUp(MouseEvent e){
@@ -458,5 +438,20 @@ public class Controller {
     private static String getFileExtension(File file){
         int extensionStart = file.getName().lastIndexOf(".");
         return file.getName().substring(extensionStart+1);
+    }
+
+    public static String lowerCase(String cadena) {
+        String limpio =null;
+        if (cadena !=null) {
+            String valor = cadena;
+            valor = valor.toLowerCase();
+            // Normalizar texto para eliminar acentos, dieresis, cedillas y tildes
+            limpio = Normalizer.normalize(valor, Normalizer.Form.NFD);
+            // Quitar caracteres no ASCII excepto la enie, interrogacion que abre, exclamacion que abre, grados, U con dieresis.
+            limpio = limpio.replaceAll("[^\\p{ASCII}(N\u0303)(n\u0303)(\u00A1)(\u00BF)(\u00B0)(U\u0308)(u\u0308)]", "");
+            // Regresar a la forma compuesta, para poder comparar la enie con la tabla de valores
+            limpio = Normalizer.normalize(limpio, Normalizer.Form.NFC);
+        }
+        return limpio;
     }
 }

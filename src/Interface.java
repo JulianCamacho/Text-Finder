@@ -23,6 +23,7 @@ public class Interface extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("interface.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("- Text Finder");
         primaryStage.getIcons().add(new Image("imgs/icon1.png") );
         primaryStage.sizeToScene();
         primaryStage.setResizable(false);
