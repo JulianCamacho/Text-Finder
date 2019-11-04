@@ -5,11 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -40,6 +41,8 @@ public class Controller {
      */
     @FXML
     Button addBtn;
+    @FXML
+    Button addFilesBtn;
     /**
      * Boton de eliminar
      */
@@ -158,6 +161,7 @@ public class Controller {
     public void initialize(){
         documents = new ArrayList<>();
         addBtn.setOnMouseClicked(this::ButtonPlusAction);
+        addFilesBtn.setOnMouseClicked(this::addFilesBtnAction);
         deleteBtn.setOnMouseClicked(this::ButtonMinus);
         indexBtn.setOnMouseClicked(this::ButtonIndex);
         searchBtn.setOnMouseClicked(this::ButtonSearch);
@@ -180,6 +184,18 @@ public class Controller {
         nameColumn.setResizable(false);
         sizeColumn.setResizable(false);
         dateColumn.setResizable(false);
+
+        Image img1 = new Image("imgs/dir.png");
+        ImageView iv1 = new ImageView(img1);
+        iv1.setFitWidth(23);
+        iv1.setFitHeight(23);
+        addBtn.setGraphic(iv1);
+
+        Image img2 = new Image("imgs/document icon.png");
+        ImageView iv2 = new ImageView(img2);
+        iv2.setFitWidth(20);
+        iv2.setFitHeight(20);
+        addFilesBtn.setGraphic(iv2);
     }
 
 
@@ -193,7 +209,7 @@ public class Controller {
      */
     public void updateSearchPane(ArrayList<File> documents,String[] text, String[] names, String[] dates, String [] sizes) {
         this.clearSearchPane();
-        this.documentsOnSearchPane=documents.toArray(new File[documents.size()]);
+        this.documentsOnSearchPane = documents.toArray(new File[documents.size()]);
         for(int i=0; i<text.length;i++){
             dl.addLast(new Documents(documents.get(i).getAbsolutePath(), text[i], lowerCase(names[i]), sizes[i], dates[i].substring(0, 10), inputField.getText()));
             this.updateResultTable();
@@ -218,31 +234,21 @@ public class Controller {
             File selectedDirectory = new File(dc.showDialog(null).getAbsolutePath());
             File[] subDir = selectedDirectory.listFiles();
             Text dirName = new Text(selectedDirectory.getName());
-            dirName.setFill(Color.DARKBLUE);
+            dirName.setFill(Color.DARKGOLDENROD);
             dirName.setUnderline(true);
             libraryListView.getItems().add(dirName);
             for (int i = 0; i < subDir.length; i++) {
                 if (getFileExtension(subDir[i]).equals("pdf") || getFileExtension(subDir[i]).equals("docx") || getFileExtension(subDir[i]).equals("txt")){
-                    /*System.out.println(documents.size());
-                    if (this.documents.size() != 0){
-                        for (int h = 0; h < this.documents.size(); h++) {
-                            System.out.println(subDir[i].getName());
-                            System.out.println(documents.get(h).getName());
-                            if (!subDir[i].getName().equals(this.documents.get(h).getName())){
-                                libraryListView.getItems().add(subDir[i].getName());
-                                this.documents.add(subDir[i]);
-                            }
-                        }
-                    } else{*/
-                        libraryListView.getItems().add(subDir[i].getName());
-                        this.documents.add(subDir[i]);
-                    //}
+                    libraryListView.getItems().add(subDir[i].getName());
+                    this.documents.add(subDir[i]);
                 }
             }
         } catch (NullPointerException e){
             AlertBoxes.displayResultAlertBox("Exception", "No directory selected");
         }
+    }
 
+    public void addFilesBtnAction(MouseEvent event){
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("pdf files", "*.pdf"),
@@ -251,30 +257,28 @@ public class Controller {
         List<File> selectedFiles = fc.showOpenMultipleDialog(null);
         if (selectedFiles != null){
             for(int i = 0; i < selectedFiles.size(); i++){
-                /*if (this.documents.size() != 0){
-                    for (int h = 0; h < this.documents.size(); h++) {
-                        if (!selectedFiles.get(i).getName().equals(this.documents.get(h).getName())){
-                            libraryListView.getItems().add(selectedFiles.get(i).getName());
-                            this.documents.addAll(selectedFiles);
-                        }
-                    }
-                } else{*/
-                    libraryListView.getItems().add(selectedFiles.get(i).getName());
-                    this.documents.addAll(selectedFiles);
-                //}
+                libraryListView.getItems().add(selectedFiles.get(i).getName());
+                this.documents.add(selectedFiles.get(i));
             }
         } else {
             AlertBoxes.displayResultAlertBox("Exception", "No file selected or invalid file");
         }
     }
 
-
+    /**
+     * Boton para eliminar archivos de la biblioteca
+     * @param event
+     */
     private void ButtonMinus(MouseEvent event) {
-        int index = libraryListView.getSelectionModel().getSelectedIndex();
-        if (index >= 0){
-            libraryListView.getItems().remove(index);
-            System.out.println(this.documents.remove(index).getName());
-            this.documents.remove(index);
+        try{
+            int index = libraryListView.getSelectionModel().getSelectedIndex();
+            if (index >= 0){
+                libraryListView.getItems().remove(index);
+                System.out.println(this.documents.remove(index).getName());
+                this.documents.remove(index);
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e){
+            AlertBoxes.displayAlertBox("Exception", "Unable to delete the selected file");
         }
     }
 
@@ -337,6 +341,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Metodo para agregar elementos a la lista de resultados
+     * @param dl lista de Documentos
+     * @return
+     */
     public ObservableList<Documents> getIndexedDocuments(DocumentsDoublyLinkedList dl){
         ObservableList<Documents> files = FXCollections.observableArrayList();
         for(int i = 0; i < dl.getLength(); i++){
@@ -345,6 +354,9 @@ public class Controller {
         return files;
     }
 
+    /**
+     * Metodo de configuracion de la lista de resultados
+     */
     private void updateResultTable(){
         textColumn.setCellValueFactory(new PropertyValueFactory<>("textFlow"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -440,6 +452,11 @@ public class Controller {
         return file.getName().substring(extensionStart+1);
     }
 
+    /**
+     * Metodo para quitar las letras mayúsculas de un texto
+     * @param cadena texto a modificar
+     * @return texto modificado
+     */
     public static String lowerCase(String cadena) {
         String limpio =null;
         if (cadena !=null) {

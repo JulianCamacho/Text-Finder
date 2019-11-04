@@ -32,6 +32,11 @@ public class Documents {
         this.textFlow = createTexts(phrase);
     }
 
+    /**
+     * Metodo para crear Texts para subrayar las palabras encontradas
+     * @param phrase frase buscada
+     * @return TextFlow con el texto modificado
+     */
     public TextFlow createTexts(String phrase){
         String completeText = clearAccent(this.text);
         String target = clearAccent(phrase);
@@ -55,6 +60,11 @@ public class Documents {
         return result;
     }
 
+    /**
+     * Metodo para eliminar tildes de las palabras
+     * @param cadena texto a modificar
+     * @return texto modificado
+     */
     public static String clearAccent(String cadena) {
         String limpio =null;
         if (cadena !=null) {

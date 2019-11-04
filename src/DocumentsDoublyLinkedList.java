@@ -151,12 +151,4 @@ public class DocumentsDoublyLinkedList {
     public int getLength() {
         return length;
     }
-
-    public int[] toIntArray(){
-        int[] result = new int[this.length];
-        for(int i = 0; i < length; i++){
-            result[i] = this.get(i).getRealSize();
-        }
-        return result;
-    }
 }

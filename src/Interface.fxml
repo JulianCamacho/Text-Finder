@@ -26,9 +26,14 @@
                      <children>
                         <HBox alignment="CENTER" layoutY="341.0" prefHeight="57.0" prefWidth="144.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <children>
+                              <Button fx:id="addFilesBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" text="+">
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </Button>
                               <Button fx:id="addBtn" minWidth="21.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" text="+">
                                  <HBox.margin>
-                                    <Insets right="4.0" />
+                                    <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
                               <Button fx:id="deleteBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="28.0" text="-" />
